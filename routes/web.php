@@ -4,6 +4,7 @@ use App\Livewire\Pages\About;
 use App\Livewire\Pages\Cart;
 use App\Livewire\Pages\CartSuccess;
 use App\Livewire\Pages\Checkout;
+use App\Livewire\Pages\Contact;
 use App\Livewire\Pages\Home;
 use App\Livewire\Pages\Login;
 use App\Livewire\Pages\Register;
@@ -23,6 +24,7 @@ Route::get('/', function () {
 Route::prefix("page")->group(function(){
     Route::get('/home', Home::class)->name("home");
     Route::get('/shop', Shop::class)->name("shop");
+    Route::get('/contact', Contact::class)->name("contact");
     Route::get('/about', About::class)->name("about");
     Route::get('/cart', Cart::class)->name("cart");
     Route::get('/checkout', Checkout::class)->name("checkout");

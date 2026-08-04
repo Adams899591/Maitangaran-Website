@@ -20,6 +20,7 @@
 </head>  
 <body class="bg-gray-50 m-0 p-0 font-sans antialiased flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false }">
 
+
   <!-- Main Content Wrapper -->
   <div class="flex-grow">
     <!-- Navbar -->
@@ -43,19 +44,22 @@
           <ul class="flex items-center mb-0 list-none space-x-6 me-auto">
             <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ route('home') }}"  wire:navigate><b>Home</b></a></li>
             <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ route('shop') }}" wire:navigate><b>Shop</b></a></li>
-            <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ url('/contact') }}" wire:navigate><b>Contact</b></a></li>
+            <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ route('contact') }}" wire:navigate><b>Contact</b></a></li>
             <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ route('about') }}" wire:navigate><b>About</b></a></li>
           </ul>
 
           <ul class="flex items-center mb-0 list-none space-x-6">
-            <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ url('/trending') }}" wire:navigate><b>Trending</b></a></li>
+            {{-- <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ url('/trending') }}" wire:navigate><b>Trending</b></a></li> --}}
             <li>
-              <a class="text-gray-900 font-medium hover:text-black transition-colors no-underline flex items-center gap-1" href="{{ route('cart') }}">
-                <b>
-                  <span class="text-gray-900 font-bold"><i class="fas fa-shopping-cart"></i> 0</span> 
-                  Cart
-                </b>
-              </a>
+              <a class="text-gray-900 font-medium hover:text-black transition-colors no-underline inline-flex items-center gap-2" href="{{ route('cart') }}" wire::navigate>
+                  <div class="relative inline-flex items-center">
+                    <!-- Shopping Cart Icon -->
+                    {{-- <i class="fas fa-shopping-cart text-lg"></i> --}}
+                    <!-- Red Notification Number Badge -->
+                    {{-- <span class="absolute -top-2 -right-2.5 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full leading-tight">0</span> --}}
+                  </div>
+                  <span class="font-bold">Cart</span>
+                </a>
             </li>
             <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ route('login') }}"  wire::navigate><b>Account</b></a></li>
           </ul>                            
@@ -73,7 +77,8 @@
          x-transition:leave-end="opacity-0"
          @click="mobileMenuOpen = false" 
          class="fixed inset-0 bg-black/50 z-[1045] lg:hidden" 
-         style="display: none;"></div>
+         style="display: none;">
+    </div>
 
     <!-- Pure Tailwind Offcanvas Sidebar -->
     <div x-show="mobileMenuOpen" 
@@ -97,31 +102,37 @@
          <!-- Sidebar Content Links -->
          <div class="p-4 overflow-y-auto flex-1">
            <ul class="flex flex-col space-y-1 list-none p-0 m-0">
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ url('/home') }}"><b>Home</b></a></li>
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ url('/shop') }}"><b>Shop</b></a></li>
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ url('/contact') }}"><b>Contact</b></a></li>
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ url('/about') }}"><b>About</b></a></li>
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ url('/trending') }}"><b>Trending</b></a></li>
+             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('home') }}"  wire:navigate><b>Home</b></a></li>
+             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('shop') }}"  wire:navigate><b>Shop</b></a></li>
+             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('contact') }}"  wire:navigate><b>Contact</b></a></li>
+             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('about') }}"  wire:navigate><b>About</b></a></li>
+             {{-- <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('/trending') }}"><b>Trending</b></a></li> --}}
              <li>
-               <a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline flex items-center justify-between" href="{{ url('/cart') }}">
-                 <b>Cart</b>
-                 <span class="text-gray-900 font-bold bg-gray-100 px-2.5 py-0.5 rounded-full text-sm"><i class="fas fa-shopping-cart"></i> 0</span>
-               </a>
+               <a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline flex items-center justify-between group" href="{{ route('cart') }}"  wire:navigate>
+                  <b>Cart</b>
+                  <div class="relative inline-flex items-center">
+                    <div class="bg-gray-100 group-hover:bg-neutral-800 px-3 py-1 rounded-full flex items-center gap-2 transition-colors">
+                      <i class="fas fa-shopping-cart text-gray-900 group-hover:text-white text-sm"></i>
+                      <span class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full leading-tight">0</span>
+                    </div>
+                  </div>
+              </a>
              </li>
              <li class="pt-2 border-t border-gray-100 mt-2">
-               <a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ url('/sign.in.php') }}"><b>Account</b></a>
+               <a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('login') }}"  wire:navigate><b>Account</b></a>
              </li>
            </ul>
          </div>
-  </div>
+    </div>
 
     <!-- Render the Livewire Component Content -->
     {{ $slot }}
   </div>
 
-
-  <!-- Responsive Black & White Tailwind Footer -->
-  <footer class="bg-black text-gray-300 pt-12 pb-8 mt-16 border-t border-neutral-800">
+ 
+ 
+ <!-- Responsive Black & White Tailwind Footer -->
+  <footer class="bg-black text-gray-300 pt-12 pb-8 mt-16 border-t border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Responsive Footer Grid -->
@@ -131,7 +142,7 @@
         <div class="space-y-4">
           <!-- Logo from Laravel Assets -->
           {{-- <a class="inline-block no-underline" href="{{ url('/') }}"> --}}
-            <img src="{{ asset('images/logo.png') }}" alt="MAITANGARAN Logo" class="h-10 w-auto object-contain brightness-0 invert">
+            <img src="{{ asset('images/logo.png') }}" alt="MAITANGARAN Logo" class="h-10 w-auto object-contain rounded-lg">
           {{-- </a> --}}
           <p class="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-sm">
             Your trusted fashion partner since 2021. Bringing you premium quality and timeless designs.
@@ -158,19 +169,19 @@
 
         <!-- Column 2: Quick Links -->
         <div>
-          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-neutral-800 pb-2 inline-block sm:border-none sm:pb-0">Quick Links</h5>
+          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-gray-800 pb-2 inline-block sm:border-none sm:pb-0">Quick Links</h5>
           <ul class="space-y-2.5 list-none p-0 m-0 text-sm">
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Home</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Shop</a></li>
+            <li><a href="{{route("home")}}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Home</a></li>
+            <li><a href="{{route("shop")}}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Shop</a></li>
             <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Orders</a></li>
             <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Wishlist</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Contact</a></li>
+            <li><a href="{{route("contact")}}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Contact</a></li>
           </ul>
         </div>
 
         <!-- Column 3: Help -->
         <div>
-          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-neutral-800 pb-2 inline-block sm:border-none sm:pb-0">Help & Info</h5>
+          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-gray-800 pb-2 inline-block sm:border-none sm:pb-0">Help & Info</h5>
           <ul class="space-y-2.5 list-none p-0 m-0 text-sm">
             <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">FAQs</a></li>
             <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Shipping Info</a></li>
@@ -182,14 +193,14 @@
 
         <!-- Column 4: Newsletter -->
         <div>
-          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-neutral-800 pb-2 inline-block sm:border-none sm:pb-0">Newsletter</h5>
+          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-gray-800 pb-2 inline-block sm:border-none sm:pb-0">Newsletter</h5>
           <p class="text-xs sm:text-sm text-gray-400 mb-4 leading-relaxed">
             Subscribe to receive updates, access to exclusive deals, and more.
           </p>
           <form class="flex flex-col gap-2.5 w-full">
             <input 
               type="email" 
-              class="w-full px-3.5 py-2 text-sm bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors" 
+              class="w-full px-3.5 py-2 text-sm bg-neutral-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors" 
               placeholder="Enter your email" 
               required
             >
@@ -210,7 +221,7 @@
           © 2025 MAITANGARAN. All rights reserved.
         </div>
         <!-- Payment Badges using Web URLs -->
-        <div class="flex items-center space-x-3 bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800">
+        <div class="flex items-center space-x-3 bg-neutral-900 px-3 py-1.5 rounded-lg border border-gray-800">
           <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/master/mono/visa.svg" alt="Visa" width="36" class="h-5 object-contain brightness-200 opacity-80 hover:opacity-100 transition-opacity">
           <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/master/mono/mastercard.svg" alt="Mastercard" width="36" class="h-5 object-contain brightness-200 opacity-80 hover:opacity-100 transition-opacity">
           <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/master/mono/paypal.svg" alt="PayPal" width="36" class="h-5 object-contain brightness-200 opacity-80 hover:opacity-100 transition-opacity">
