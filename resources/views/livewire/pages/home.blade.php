@@ -1,184 +1,152 @@
-
-
-{{-- <div>
-<!-- Discover Luxury, Style & Quality Section -->
-<section>
-  <!-- Marquee Banner (Sleek Black & White) -->
-  <div class="bg-black text-white py-3 font-bold text-base sm:text-lg whitespace-nowrap overflow-hidden">
-    <marquee behavior="scroll" direction="left" scrollamount="6" class="pl-4">
-      🛍️ Welcome to Cartévo! -your ultimate destination for quality fashion, footwear, accessories, and everyday electronics. We bring you seamless online shopping experience with handpacked collections, unbeatable prices, and fast delivery. Whether you are shopping out in style or upgrading your tech, Cartévo is here to elevate your lifestyle. Shop smart. Shop Confidently. Shop Cartévo - where convenience meets class, and excellence is always in stock 🔥.
-    </marquee>
-  </div>
-
-  <!-- Hero Section -->
-  <div class="py-[60px] px-5 text-center bg-gradient-to-r from-gray-100 to-gray-200">
-    <div class="max-w-7xl mx-auto">
-      <h1 class="text-3xl sm:text-4xl font-bold text-black mb-3.5">
-        Discover Luxury, Style & Quality
-      </h1>
-      <p class="text-base sm:text-lg text-gray-600 mb-6">
-        Explore our finest collection of bags, shoes, watches, and fashion accessories tailored just for you.
-      </p>
-      <a href="#shop">
-        <button class="bg-black hover:bg-gray-800 text-white px-6 py-3 border-none rounded-full font-semibold transition-colors duration-300 cursor-pointer shadow-md">
-          Shop Now
-        </button>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Featured Products Section -->
-<section class="bg-[#f8f9fa] py-12" id="shop">
-  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-    <h2 class="mb-6 text-center text-2xl sm:text-3xl text-black font-bold tracking-wide uppercase">
-      Featured Products
-    </h2>
-
-    <!-- Products Grid -->
-    <div id="append-featured-product" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-
-      <!-- Product Card 1 -->
-      <div data-aos="fade-up" data-aos-duration="5000">
-        <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,1)]">
-          <div class="relative overflow-hidden aspect-square">
-            <img 
-              src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop" 
-              alt="Luxury Leather Handbag" 
-              class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
-            >
-          </div>
-          <div class="font-bold mt-3 text-[13px] sm:text-[1.1rem] text-black line-clamp-1">
-            Luxury Leather Handbag
-          </div>
-          <div class="text-[15px] sm:text-[20px] text-black mb-2 flex items-center justify-center gap-1 font-bold">
-            <span class="text-lg sm:text-xl">&#8358;</span>
-            <span>25,000</span>
-          </div>
-          <a href="single.product.php?GetSingleProductId=1">
-            <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
-              Buy Now
-            </button>
-          </a>
-        </div>
-      </div>
-
-      <!-- Product Card 2 -->
-      <div data-aos="fade-up" data-aos-duration="5000">
-        <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,1)]">
-          <div class="relative overflow-hidden aspect-square">
-            <img 
-              src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600&auto=format&fit=crop" 
-              alt="Designer Men Sneakers" 
-              class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
-            >
-          </div>
-          <div class="font-bold mt-3 text-[13px] sm:text-[1.1rem] text-black line-clamp-1">
-            Designer Men Sneakers
-          </div>
-          <div class="text-[15px] sm:text-[20px] text-black mb-2 flex items-center justify-center gap-1 font-bold">
-            <span class="text-lg sm:text-xl">&#8358;</span>
-            <span>42,500</span>
-          </div>
-          <a href="single.product.php?GetSingleProductId=2">
-            <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
-              Buy Now
-            </button>
-          </a>
-        </div>
-      </div>
-
-      <!-- Product Card 3 -->
-      <div data-aos="fade-up" data-aos-duration="5000">
-        <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,1)]">
-          <div class="relative overflow-hidden aspect-square">
-            <img 
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" 
-              alt="Classic Chronograph Watch" 
-              class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
-            >
-          </div>
-          <div class="font-bold mt-3 text-[13px] sm:text-[1.1rem] text-black line-clamp-1">
-            Classic Chronograph Watch
-          </div>
-          <div class="text-[15px] sm:text-[20px] text-black mb-2 flex items-center justify-center gap-1 font-bold">
-            <span class="text-lg sm:text-xl">&#8358;</span>
-            <span>18,000</span>
-          </div>
-          <a href="single.product.php?GetSingleProductId=3">
-            <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
-              Buy Now
-            </button>
-          </a>
-        </div>
-      </div>
-
-      <!-- Product Card 4 -->
-      <div data-aos="fade-up" data-aos-duration="5000">
-        <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,1)]">
-          <div class="relative overflow-hidden aspect-square">
-            <img 
-              src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=600&auto=format&fit=crop" 
-              alt="Luxury Designer Sunglasses" 
-              class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
-            >
-          </div>
-          <div class="font-bold mt-3 text-[13px] sm:text-[1.1rem] text-black line-clamp-1">
-            Luxury Designer Sunglasses
-          </div>
-          <div class="text-[15px] sm:text-[20px] text-black mb-2 flex items-center justify-center gap-1 font-bold">
-            <span class="text-lg sm:text-xl">&#8358;</span>
-            <span>30,000</span>
-          </div>
-          <a href="single.product.php?GetSingleProductId=4">
-            <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
-              Buy Now
-            </button>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Load More Button Section -->
-<section>
-  <div id="Featured-load-More-Btn" class="text-center mt-2 px-4">
-    <button class="bg-black hover:bg-gray-800 text-white border-none font-bold py-3 px-6 rounded shadow-md w-full min-[701px]:w-[40%] transition-colors duration-200 cursor-pointer uppercase tracking-wider text-sm">
-      Load More
-    </button>
-  </div>
-</section>
-</div> --}}
-
-
 <div>
+
+    <!-- Hero Banner Section (Updated Premium Styling) -->
+    <header class="bg-gray-100/80 border-b border-gray-200 overflow-hidden">
+      <div class="w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 lg:max-w-7xl lg:mx-auto lg:px-8 lg:py-20 items-center">
+          
+          <!-- Text Container -->
+          <div class="flex flex-col items-start justify-center order-1 px-4 sm:px-6 lg:px-0 py-10 lg:py-0">
+            <span class="text-gray-800 font-bold tracking-wider uppercase text-[11px] md:text-xs mb-4 bg-gray-900/5 px-3.5 py-1.5 rounded-full border border-gray-300/60 shadow-sm">
+              New Collection Available
+            </span>
+            <h5 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 mb-5 leading-[1.15]">
+              Discover Timeless Elegance & Premium Fabrics
+            </h5>
+            <p class="text-base sm:text-lg text-gray-600 mb-8 font-normal leading-relaxed max-w-xl">
+              Elevate your style with Maitangaran's exclusive collection of luxurious traditional and contemporary fabrics crafted for perfection.
+            </p>
+            <div class="flex flex-wrap gap-3.5 w-full sm:w-auto">
+              <a href="{{ route('shop') }}" class="bg-gray-900 hover:bg-black text-white font-bold px-7 py-3.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 no-underline flex items-center justify-center gap-2 flex-1 sm:flex-initial text-sm" wire:navigate>
+                <span>Shop Now</span>
+                <i class="fas fa-arrow-right text-xs"></i>
+              </a>
+              <a href="{{ url('/about') }}" class="bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 font-bold px-7 py-3.5 rounded-xl shadow-sm transition-all duration-300 no-underline flex items-center justify-center flex-1 sm:flex-initial text-sm">
+                Learn More
+              </a>
+            </div>
+          </div>
+
+          <!-- Image Container -->
+          <div class="w-full relative flex justify-center lg:justify-end order-2 pb-8 lg:pb-0">
+            <div class="relative w-full max-w-lg lg:max-w-none rounded-2xl overflow-hidden shadow-xl border border-gray-300/80 bg-gray-200">
+              <img src="https://images.unsplash.com/photo-1768758533474-5cd148638a98?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Maitangaran Fabrics Banner" class="w-full h-[320px] sm:h-[400px] lg:h-[480px] object-cover object-center">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Discover Luxury, Style & Quality Section -->
 <section>
-  <!-- Marquee Banner (Sleek Black & White) -->
-  <div class="bg-black text-white py-3 font-bold text-base sm:text-lg whitespace-nowrap overflow-hidden">
-    <marquee behavior="scroll" direction="left" scrollamount="6" class="pl-4">
-      🛍️ Welcome to Cartévo! -your ultimate destination for quality fashion, footwear, accessories, and everyday electronics. We bring you seamless online shopping experience with handpacked collections, unbeatable prices, and fast delivery. Whether you are shopping out in style or upgrading your tech, Cartévo is here to elevate your lifestyle. Shop smart. Shop Confidently. Shop Cartévo - where convenience meets class, and excellence is always in stock 🔥.
-    </marquee>
-  </div>
 
-  <!-- Hero Section -->
-  <div class="py-[60px] px-5 text-center bg-gradient-to-r from-gray-100 to-gray-200">
-    <div class="max-w-7xl mx-auto">
-      <h1 class="text-3xl sm:text-4xl font-bold text-black mb-3.5">
-        Discover Luxury, Style & Quality
-      </h1>
-      <p class="text-base sm:text-lg text-gray-600 mb-6">
-        Explore our finest collection of bags, shoes, watches, and fashion accessories tailored just for you.
-      </p>
-      <a href="#shop">
-        <button class="bg-black hover:bg-gray-800 text-white px-6 py-3 border-none rounded-full font-semibold transition-colors duration-300 cursor-pointer shadow-md">
-          Shop Now
-        </button>
-      </a>
+    <!-- Add keyframe animation inline so it moves immediately -->
+    <style>
+    @keyframes marquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee-smooth {
+        display: flex;
+        width: max-content;
+        animation: marquee 25s linear infinite;
+    }
+    .animate-marquee-smooth:hover {
+        animation-play-state: paused; /* Pauses smoothly when user hovers */
+    }
+    </style>
+
+    <!-- Sleek Infinite Marquee Ticker with Icons -->
+    <div class="bg-gray-900 border-b border-gray-800 text-gray-200 py-3 text-xs sm:text-sm font-semibold tracking-wider uppercase overflow-hidden select-none">
+    <div class="flex whitespace-nowrap animate-marquee-smooth">
+        
+        <!-- First Pass -->
+        <div class="flex items-center space-x-6 shrink-0">
+        <span class="flex items-center gap-2 text-amber-400 font-bold">
+            <i class="fas fa-store text-base"></i> Welcome to Cartévo
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2">
+            <i class="fas fa-[#D4AF37] fa-tshirt text-amber-400"></i> Quality Fashion & Footwear
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2">
+            <i class="fas fa-mobile-alt text-amber-400"></i> Everyday Electronics
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2 text-amber-400 font-bold">
+            <i class="fas fa-tags"></i> Unbeatable Prices
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2">
+            <i class="fas fa-shipping-fast text-amber-400"></i> Fast Nationwide Delivery
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2 pr-6">
+            <i class="fas fa-crown text-amber-400"></i> Where Convenience Meets Class 🔥
+        </span>
+        </div>
+
+        <!-- Duplicate Pass (Ensures continuous seamless looping) -->
+        <div class="flex items-center space-x-6 shrink-0" aria-hidden="true">
+        <span class="flex items-center gap-2 text-amber-400 font-bold">
+            <i class="fas fa-store text-base"></i> Welcome to Cartévo
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2">
+            <i class="fas fa-[#D4AF37] fa-tshirt text-amber-400"></i> Quality Fashion & Footwear
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2">
+            <i class="fas fa-mobile-alt text-amber-400"></i> Everyday Electronics
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2 text-amber-400 font-bold">
+            <i class="fas fa-tags"></i> Unbeatable Prices
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2">
+            <i class="fas fa-shipping-fast text-amber-400"></i> Fast Nationwide Delivery
+        </span>
+        <span class="text-gray-600 text-xs">◆</span>
+        <span class="flex items-center gap-2 pr-6">
+            <i class="fas fa-crown text-amber-400"></i> Where Convenience Meets Class 🔥
+        </span>
+        </div>
+
     </div>
-  </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="py-[60px] px-5 text-center bg-gradient-to-r from-gray-100 to-gray-200">
+        <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl sm:text-4xl font-bold text-black mb-3.5">
+            Discover Luxury, Style & Quality
+        </h1>
+        <p class="text-base sm:text-lg text-gray-600 mb-6">
+            Explore our finest collection of bags, shoes, watches, and fashion accessories tailored just for you.
+        </p>
+        <a href="#shop">
+            <button class="bg-black hover:bg-gray-800 text-white px-6 py-3 border-none rounded-full font-semibold transition-colors duration-300 cursor-pointer shadow-md">
+            Shop Now
+            </button>
+        </a>
+        </div>
+    </div>
 </section>
 
 <!-- Featured Products Section -->
@@ -191,22 +159,31 @@
     <!-- Products Grid -->
     <div id="append-featured-product" class="grid grid-cols-2 md:grid-cols-4 gap-4">
 
-      <!-- Product Card 1 -->
+
+      {{-- Card 1 Note: Very important --}}
       <div data-aos="fade-up" data-aos-duration="5000">
         <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
-          <div class="relative overflow-hidden aspect-square">
-            <img 
-              src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop" 
-              alt="Luxury Leather Handbag" 
-              class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
-            >
-          </div>
+          
+          {{-- @if(!empty($product->image)) --}}
+              {{-- Normal Image View --}}
+              {{-- <div class="relative overflow-hidden aspect-square">
+                <img 
+                  src="{{ $product->image }}" 
+                  alt="{{ $product->name }}" 
+                  class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
+                >
+              </div>
+          @else --}}
+              {{-- Standalone Fallback Component --}}
+              <x-no-image-uploaded heightClass="aspect-square" />
+          {{-- @endif --}}
+
           <div class="font-bold mt-3 text-[13px] sm:text-[1.1rem] text-black line-clamp-1">
-            Luxury Leather Handbag
+            {{ $product->name ?? 'Luxury Leather Handbag' }}
           </div>
           <div class="text-[15px] sm:text-[20px] text-black mb-2 flex items-center justify-center gap-1 font-bold">
             <span class="text-lg sm:text-xl">&#8358;</span>
-            <span>25,000</span>
+            <span>{{ number_format($product->price ?? 25000) }}</span>
           </div>
           <a href="single.product.php?GetSingleProductId=1">
             <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">

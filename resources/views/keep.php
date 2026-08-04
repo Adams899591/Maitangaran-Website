@@ -1,268 +1,147 @@
-{{-- <!DOCTYPE html>
-<html lang="en">  
-<head>  
-  <meta charset="UTF-8" />  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{ $title ?? 'MAITANGARAN - Premium Fabrics Collection' }}</title> 
-
-  <!-- FontAwesome Icon -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- AOS link -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-  <!-- SimplePagination.js -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.min.css">
-
-  @vite(["resources/css/app.css","resources/js/app.js"])
-  @livewireStyles
-</head>  
-<body class="bg-gray-50 m-0 p-0 font-sans antialiased flex flex-col min-h-screen" x-data="{ mobileMenuOpen: false }">
-
-  <!-- Main Content Wrapper -->
-  <div class="flex-grow">
-    <!-- Navbar -->
-    <nav class="bg-white sticky top-0 z-[1040] shadow-sm border-b border-gray-100 h-16 flex items-center">
-      <div class="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        
-        <div class="flex items-center">
-          <!-- Mobile Menu Toggle Button -->
-          <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-gray-700 focus:outline-none me-3 p-2 border-0 bg-transparent cursor-pointer" type="button" aria-label="Toggle Menu">
-            <i class="fas fa-bars text-xl"></i>
-          </button>
-
-          <!-- Logo from Laravel Assets -->
-          <a class="flex items-center no-underline" href="{{ url('/') }}">
-            <img src="{{ asset('images/logo.png') }}" alt="MAITANGARAN Logo" class="h-11 w-auto object-contain">
-          </a>
-        </div>
-
-        <!-- Desktop Menu -->
-        <div class="hidden lg:flex lg:items-center lg:justify-between w-full ms-6" id="navbarNav">
-          <ul class="flex items-center mb-0 list-none space-x-6 me-auto">
-            <li><a class="text-black font-medium hover:text-black transition-colors no-underline" href="{{ url('/home') }}"><b>Home</b></a></li>
-            <li><a class="text-black font-medium hover:text-black transition-colors no-underline" href="{{ url('/shop') }}"><b>Shop</b></a></li>
-            <li><a class="text-black font-medium hover:text-black transition-colors no-underline" href="{{ url('/contact') }}"><b>Contact</b></a></li>
-            <li><a class="text-black font-medium hover:text-black transition-colors no-underline" href="{{ url('/about') }}"><b>About</b></a></li>
-          </ul>
-
-          <ul class="flex items-center mb-0 list-none space-x-6">
-            <li><a class="text-black font-medium hover:text-black transition-colors no-underline" href="{{ url('/trending') }}"><b>Trending</b></a></li>
-            <li>
-              <a class="text-black font-medium hover:text-black transition-colors no-underline flex items-center gap-1" href="{{ url('/cart') }}">
-                <b>
-                  <span class="text-black font-bold"><i class="fas fa-shopping-cart"></i> 0</span> 
-                  Cart
-                </b>
-              </a>
-            </li>
-            <li><a class="text-black font-medium hover:text-black transition-colors no-underline" href="{{ url('/sign.in.php') }}"><b>Account</b></a></li>
-          </ul>                            
-        </div>
+<div class="min-h-screen bg-gray-50 flex flex-col md:flex-row" x-data="{ mobileMenuOpen: false }">
+  
+  <!-- Sidebar Navigation (Desktop & Mobile Slide-over) -->
+  <aside 
+    :class="mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'" 
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-100 p-6 flex flex-col justify-between transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:inset-auto"
+  >
+    <div>
+      <!-- Brand / Logo Area -->
+      <div class="flex items-center justify-between pb-6 mb-6 border-b border-gray-100">
+        <h1 class="text-lg font-extrabold text-gray-900 tracking-tight">MAITANGARAN</h1>
+        <button @click="mobileMenuOpen = false" class="md:hidden text-gray-400 hover:text-gray-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
       </div>
-    </nav>
 
-    <!-- Mobile Offcanvas Menu Backdrop -->
-    <div x-show="mobileMenuOpen" 
-         x-transition:enter="transition-opacity ease-linear duration-300"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         x-transition:leave="transition-opacity ease-linear duration-300"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
-         @click="mobileMenuOpen = false" 
-         class="fixed inset-0 bg-black/50 z-[1045] lg:hidden" 
-         style="display: none;"></div>
-
-    <!-- Pure Tailwind Offcanvas Sidebar -->
-    <div x-show="mobileMenuOpen" 
-         x-transition:enter="transition ease-in-out duration-300 transform"
-         x-transition:enter-start="-translate-x-full"
-         x-transition:enter-end="translate-x-0"
-         x-transition:leave="transition ease-in-out duration-300 transform"
-         x-transition:leave-start="translate-x-0"
-         x-transition:leave-end="-translate-x-full"
-         class="fixed inset-y-0 left-0 z-[1050] w-full max-w-[280px] h-screen bg-white shadow-2xl border-r border-gray-100 flex flex-col lg:hidden"
-         style="display: none;">
-         
-         <!-- Sidebar Header -->
-         <div class="bg-white px-5 py-4 flex items-center justify-between border-b border-gray-100">
-           <span class="text-gray-900 font-bold text-base tracking-wide">Menu</span>
-           <button @click="mobileMenuOpen = false" type="button" class="text-gray-500 hover:text-black bg-transparent border-0 text-lg cursor-pointer p-2" aria-label="Close">
-             <i class="fas fa-times"></i>
-           </button>
-         </div>
-
-         <!-- Sidebar Content Links -->
-         <div class="p-4 overflow-y-auto flex-1">
-           <ul class="flex flex-col space-y-1 list-none p-0 m-0">
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-black font-medium hover:text-white hover:bg-black transition-all no-underline" href="{{ url('/home') }}"><b>Home</b></a></li>
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-black font-medium hover:text-white hover:bg-black transition-all no-underline" href="{{ url('/shop') }}"><b>Shop</b></a></li>
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-black font-medium hover:text-white hover:bg-black transition-all no-underline" href="{{ url('/contact') }}"><b>Contact</b></a></li>
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-black font-medium hover:text-white hover:bg-black transition-all no-underline" href="{{ url('/about') }}"><b>About</b></a></li>
-             <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-black font-medium hover:text-white hover:bg-black transition-all no-underline" href="{{ url('/trending') }}"><b>Trending</b></a></li>
-             <li>
-               <a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-black font-medium hover:text-white hover:bg-black transition-all no-underline flex items-center justify-between" href="{{ url('/cart') }}">
-                 <b>Cart</b>
-                 <span class="text-black font-bold bg-gray-100 px-2.5 py-0.5 rounded-full text-sm"><i class="fas fa-shopping-cart"></i> 0</span>
-               </a>
-             </li>
-             <li class="pt-2 border-t border-gray-100 mt-2">
-               <a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-black font-medium hover:text-white hover:bg-black transition-all no-underline" href="{{ url('/sign.in.php') }}"><b>Account</b></a>
-             </li>
-           </ul>
-         </div>
+      <!-- Side Menu Items -->
+      <nav class="space-y-1.5">
+        <a href="#profile" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-900 bg-gray-50 rounded-lg transition-colors">
+          <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          Account Profile
+        </a>
+        <a href="#ledger" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors">
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          Order Ledger
+        </a>
+        <a href="#security" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors">
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+          </svg>
+          Change Password
+        </a>
+      </nav>
     </div>
 
-    <!-- Hero Banner Section -->
-    <header class="bg-white overflow-hidden border-b border-gray-100">
-      <div class="w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 lg:max-w-7xl lg:mx-auto lg:px-8 lg:py-24 items-center">
-          
-          <!-- Text Container -->
-          <div class="flex flex-col items-start justify-center order-1 px-4 sm:px-6 lg:px-0 py-8 lg:py-0">
-            <span class="text-black font-bold tracking-widest uppercase text-xs md:text-sm mb-4 bg-gray-100 px-3 py-1.5 rounded-md border border-gray-200">
-              New Collection Available
-            </span>
-            <h1 class="text-3xl sm:text-4xl lg:text-6xl font-black tracking-tight text-black mb-6 leading-[1.1]">
-              Discover Timeless Elegance & Premium Fabrics
-            </h1>
-            <p class="text-base sm:text-lg text-gray-600 mb-8 font-normal leading-relaxed">
-              Elevate your style with Maitangaran's exclusive collection of luxurious traditional and contemporary fabrics crafted for perfection.
-            </p>
-            <div class="flex flex-wrap gap-4 w-full sm:w-auto">
-              <a href="{{ url('/shop') }}" class="bg-black hover:bg-gray-800 text-white font-semibold px-8 py-4 rounded-xl shadow-md transition-all duration-200 no-underline flex items-center justify-center gap-2 flex-1 sm:flex-initial">
-                <span>Shop Now</span>
-                <i class="fas fa-arrow-right text-sm"></i>
-              </a>
-              <a href="{{ url('/about') }}" class="bg-white hover:bg-gray-50 text-black border-2 border-black font-semibold px-8 py-4 rounded-xl transition-all duration-200 no-underline flex items-center justify-center flex-1 sm:flex-initial">
-                Learn More
-              </a>
-            </div>
-          </div>
+    <!-- Logout Option at Bottom -->
+    <div class="pt-6 border-t border-gray-100">
+      <button wire:click="logout" class="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+        <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+        </svg>
+        Log Out
+      </button>
+    </div>
+  </aside>
 
-          <!-- Image Container -->
-          <div class="w-full relative flex justify-center lg:justify-end order-2">
-            <div class="relative w-full rounded-none lg:rounded-2xl overflow-hidden shadow-none lg:shadow-2xl border-0 lg:border border-gray-100 bg-gray-100">
-              <img src="https://images.unsplash.com/photo-1768758533474-5cd148638a98?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Maitangaran Fabrics Banner" class="w-full h-[320px] sm:h-[420px] lg:h-[520px] object-cover object-center">
-            </div>
-          </div>
-
-        </div>
-      </div>
+  <!-- Main Content Body -->
+  <div class="flex-1 flex flex-col min-w-0">
+    
+    <!-- Top Mobile Navigation Toggle Bar -->
+    <header class="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between md:hidden">
+      <h1 class="text-base font-bold text-gray-900">Dashboard</h1>
+      <button @click="mobileMenuOpen = true" class="p-2 rounded-lg bg-gray-50 text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
     </header>
 
-    <!-- Render the Livewire Component Content -->
-    {{ $slot }}
-  </div>
-
-  <!-- Responsive Black & White Tailwind Footer -->
-  <footer class="bg-black text-gray-300 pt-12 pb-8 mt-16 border-t border-neutral-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Dashboard Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 md:p-10 space-y-8">
       
-      <!-- Responsive Footer Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <!-- User Identification Header Section -->
+      <div class="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 p-6 md:p-8 flex flex-col sm:flex-row items-center gap-6">
+        <!-- Icon Avatar (No photo needed) -->
+        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center border border-gray-200 shrink-0">
+          <svg class="w-10 h-10 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+        </div>
         
-        <!-- Column 1: Company Info -->
-        <div class="space-y-4">
-          <!-- Logo from Laravel Assets -->
-          {{-- <a class="inline-block no-underline" href="{{ url('/') }}"> --}}
-            <img src="{{ asset('images/logo.png') }}" alt="MAITANGARAN Logo" class="h-10 w-auto object-contain brightness-0 invert">
-          {{-- </a> --}}
-          <p class="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-sm">
-            Your trusted fashion partner since 2021. Bringing you premium quality and timeless designs.
-          </p>
-          <!-- Social Icons (Monochrome) -->
-          <div class="flex items-center space-x-4 pt-2">
-            <a href="tel:+2349018827571" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Viber">
-              <i class="fa-brands fa-viber text-2xl"></i>
-            </a>
-            <a href="http://www.facebook.com/Usman Adams" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Facebook">
-              <i class="fa-brands fa-facebook text-2xl"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/usman-adams-7a5900352" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="LinkedIn">
-              <i class="fa-brands fa-linkedin text-2xl"></i>
-            </a>
-            <a href="https://wa.me/2349018827571" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="WhatsApp">
-              <i class="fa-brands fa-whatsapp text-2xl"></i>
-            </a>
-            <a href="https://github.com/Adams899591" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="GitHub">
-              <i class="fa-brands fa-github text-2xl"></i>
-            </a>
+        <div class="text-center sm:text-left flex-1">
+          <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 mb-2">
+            Verified Customer
           </div>
-        </div>
-
-        <!-- Column 2: Quick Links -->
-        <div>
-          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-neutral-800 pb-2 inline-block sm:border-none sm:pb-0">Quick Links</h5>
-          <ul class="space-y-2.5 list-none p-0 m-0 text-sm">
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Home</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Shop</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Orders</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Wishlist</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Contact</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 3: Help -->
-        <div>
-          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-neutral-800 pb-2 inline-block sm:border-none sm:pb-0">Help & Info</h5>
-          <ul class="space-y-2.5 list-none p-0 m-0 text-sm">
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">FAQs</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Shipping Info</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Return Policy</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Privacy Policy</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Terms & Conditions</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 4: Newsletter -->
-        <div>
-          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-neutral-800 pb-2 inline-block sm:border-none sm:pb-0">Newsletter</h5>
-          <p class="text-xs sm:text-sm text-gray-400 mb-4 leading-relaxed">
-            Subscribe to receive updates, access to exclusive deals, and more.
-          </p>
-          <form class="flex flex-col gap-2.5 w-full">
-            <input 
-              type="email" 
-              class="w-full px-3.5 py-2 text-sm bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors" 
-              placeholder="Enter your email" 
-              required
-            >
-            <button 
-              type="submit" 
-              class="w-full px-4 py-2 bg-white text-black hover:bg-gray-200 text-sm font-bold rounded-lg transition-colors cursor-pointer tracking-wide uppercase"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-
-      </div>
-
-      <!-- Bottom Footer Row -->
-      <div class="flex flex-col sm:flex-row items-center justify-between border-t border-neutral-900 pt-6 mt-10 gap-4 text-center sm:text-left">
-        <div class="text-gray-500 text-xs">
-          © 2025 MAITANGARAN. All rights reserved.
-        </div>
-        <!-- Payment Badges using Web URLs -->
-        <div class="flex items-center space-x-3 bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800">
-          <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/master/mono/visa.svg" alt="Visa" width="36" class="h-5 object-contain brightness-200 opacity-80 hover:opacity-100 transition-opacity">
-          <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/master/mono/mastercard.svg" alt="Mastercard" width="36" class="h-5 object-contain brightness-200 opacity-80 hover:opacity-100 transition-opacity">
-          <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/master/mono/paypal.svg" alt="PayPal" width="36" class="h-5 object-contain brightness-200 opacity-80 hover:opacity-100 transition-opacity">
+          <h2 class="text-2xl font-extrabold text-gray-900 tracking-tight">John Doe</h2>
+          <p class="text-sm text-gray-500 mt-0.5">john@example.com</p>
         </div>
       </div>
 
-    </div>
-  </footer>
+      <!-- Quick Navigation Tabs -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Quick Navigation</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          
+          <!-- Main Shop Tab -->
+          <a href="/shop" wire:navigate class="bg-white p-4 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 hover:border-black transition-all text-center group">
+            <div class="w-10 h-10 mx-auto mb-2 bg-gray-50 rounded-lg flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-gray-900">Main Shop</span>
+          </a>
 
-  <!-- AOS script -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+          <!-- Shop Room Tab -->
+          <a href="/shop-room" wire:navigate class="bg-white p-4 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 hover:border-black transition-all text-center group">
+            <div class="w-10 h-10 mx-auto mb-2 bg-gray-50 rounded-lg flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-gray-900">Shop Room</span>
+          </a>
 
-  @livewireScripts
-</body>
-</html> --}}
+          <!-- Track Order Tab -->
+          <a href="/track-order" wire:navigate class="bg-white p-4 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 hover:border-black transition-all text-center group">
+            <div class="w-10 h-10 mx-auto mb-2 bg-gray-50 rounded-lg flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/>
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-gray-900">Track Order</span>
+          </a>
+
+          <!-- Order Ledger Tab -->
+          <a href="#ledger" class="bg-white p-4 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 hover:border-black transition-all text-center group">
+            <div class="w-10 h-10 mx-auto mb-2 bg-gray-50 rounded-lg flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-gray-900">Order Ledger</span>
+          </a>
+
+          <!-- My Profile Tab -->
+          <a href="#profile" class="bg-white p-4 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 hover:border-black transition-all text-center group">
+            <div class="w-10 h-10 mx-auto mb-2 bg-gray-50 rounded-lg flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.654 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-gray-900">My Profile</span>
+          </a>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
