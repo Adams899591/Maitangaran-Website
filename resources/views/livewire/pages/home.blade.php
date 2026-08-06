@@ -354,7 +354,7 @@
                 <span class="text-lg sm:text-xl">&#8358;</span>
                 <span>{{ number_format($product->price ?? 25000) }}</span>
               </div>
-              <a href="single.product.php?GetSingleProductId=1">
+              <a href="{{route("single-product")}}">
                 <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
                   Buy Now
                 </button>
@@ -417,6 +417,7 @@
             <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
               <div class="relative overflow-hidden aspect-square">
                 <img 
+                  {{-- src="{{asset("images/banner.png")}}"  --}}
                   src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=600&auto=format&fit=crop" 
                   alt="Luxury Designer Sunglasses" 
                   class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
