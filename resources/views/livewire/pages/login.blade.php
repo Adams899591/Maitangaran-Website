@@ -19,7 +19,7 @@
       <div>
         <label for="email" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Email Address</label>
         <input 
-          type="email" 
+          type="text" 
           id="email" 
           wire:model.blur="email" 
           x-model="email"

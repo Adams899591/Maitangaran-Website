@@ -33,18 +33,18 @@
           @error('fullname') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
-        <!-- Email Address -->
+        <!-- Username -->
         <div>
-          <label for="email" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Email Address</label>
+          <label for="username" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Username</label>
           <input 
-            type="email" 
-            id="email" 
-            wire:model.blur="email" 
-            placeholder="e.g. john@example.com"
+            type="username" 
+            id="username" 
+            wire:model.blur="username" 
+            {{-- placeholder="e.g. john@example.com" --}}
             class="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
             required
           />
-          @error('email') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
+          @error('username') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
       </div>
@@ -65,23 +65,18 @@
           @error('phone') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
-        <!-- State -->
+        <!-- Email -->
         <div>
-          <label for="state" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">State</label>
-          <select 
-            id="state" 
-            wire:model.blur="state" 
-            class="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+          <label for="email" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">STATE</label>
+          <input 
+            type="email" 
+            id="email" 
+            wire:model.blur="email" 
+            {{-- placeholder="e.g. 0" --}}
+            class="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
             required
-          >
-            <option value="">Select State</option>
-            <option value="Lagos">Lagos</option>
-            <option value="Abuja">Abuja (FCT)</option>
-            <option value="Rivers">Rivers</option>
-            <option value="Oyo">Oyo</option>
-            <option value="Imo">Imo</option>
-          </select>
-          @error('state') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
+          />
+          @error('email') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
       </div>
@@ -102,38 +97,68 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         
-        <!-- Suite / Apartment -->
+        <!-- State -->
         <div>
-          <label for="suite" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Suite / Apartment (Optional)</label>
+          <label for="state" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">STATE</label>
           <input 
             type="text" 
-            id="suite" 
-            wire:model.blur="suite" 
-            placeholder="e.g. Apt 4B, Floor 2"
+            id="state" 
+            wire:model.blur="state" 
+            {{-- placeholder="e.g. 0" --}}
             class="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
           />
-          @error('suite') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
+          @error('state') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
-        <!-- Preferred Hub -->
+        <!-- Preferred PrefferedAddress -->
         <div>
-          <label for="hub" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Preferred Hub</label>
-          <select 
-            id="hub" 
-            wire:model.blur="hub" 
-            class="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-            required
-          >
-            <option value="">Select Preferred Hub</option>
-            <option value="Lekki Phase 1 Hub">Lekki Phase 1 Hub</option>
-            <option value="Ikeja City Hub">Ikeja City Hub</option>
-            <option value="Wuse Zone 4 Hub">Wuse Zone 4 Hub</option>
-            <option value="Port Harcourt Hub">Port Harcourt Hub</option>
-          </select>
-          @error('hub') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
+          <label for="PrefferedAddress" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Preferred Hu</label>
+          <input 
+            type="text" 
+            id="PrefferedAddress" 
+            wire:model.blur="PrefferedAddress" 
+            {{-- placeholder="e.g. 0" --}}
+            class="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+          />
+          @error('PrefferedAddress') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
       </div>
+
+
+
+      <!-- Success Message Session Check -->
+@if (session('success'))
+  <div class="mb-4 flex items-center rounded-lg bg-emerald-50 p-4 text-emerald-800 border border-emerald-200" role="alert">
+    <svg class="mr-3 h-5 w-5 flex-shrink-0 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+    </svg>
+    <div class="text-sm font-medium">
+      {{ session('success') }}
+    </div>
+  </div>
+@endif
+
+<!-- Error Message Session Check (Optional) -->
+@if (session('error'))
+  <div class="mb-4 flex items-center rounded-lg bg-rose-50 p-4 text-rose-800 border border-rose-200" role="alert">
+    <svg class="mr-3 h-5 w-5 flex-shrink-0 text-rose-500" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+    </svg>
+    <div class="text-sm font-medium">
+      {{ session('error') }}
+    </div>
+  </div>
+@endif
+
+<!-- Save Changes Button -->
+{{-- <button type="submit" class="...">Save Changes</button> --}}
+
+
+
+
+
+
 
       <!-- Submit / Save Changes Button -->
       <div class="pt-4">

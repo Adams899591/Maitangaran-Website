@@ -34,5 +34,11 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    
+    'ecommerce' => [
+        'url' => env('ECOMMERCE_API_URL', 'https://ecomapi.swift.ng'), // Replace with your actual endpoint root URL
+        'api' => env('ECOMMERCE_API_KEY', 'SK_live_10e7d379ad714bbdaf44afff'),
+    ],
+
 
 ];
