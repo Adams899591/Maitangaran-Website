@@ -1,98 +1,133 @@
- {{-- <footer class="bg-black text-gray-300 pt-12 pb-8 mt-16 border-t border-neutral-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Responsive Footer Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-        
-        <!-- Column 1: Company Info -->
-        <div class="space-y-4">
-          <!-- Logo from Laravel Assets -->
-          {{-- <a class="inline-block no-underline" href="{{ url('/') }}"> --}}
-            <img src="{{ asset('images/logo.png') }}" alt="MAITANGARAN Logo" class="h-10 w-auto object-contain brightness-0 invert">
-          {{-- </a> --}}
-          <p class="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-sm">
-            Your trusted fashion partner since 2021. Bringing you premium quality and timeless designs.
-          </p>
-          <!-- Social Icons (Monochrome) -->
-          <div class="flex items-center space-x-4 pt-2">
-            <a href="tel:+2349018827571" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Viber">
-              <i class="fa-brands fa-viber text-2xl"></i>
-            </a>
-            <a href="http://www.facebook.com/Usman Adams" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Facebook">
-              <i class="fa-brands fa-facebook text-2xl"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/usman-adams-7a5900352" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="LinkedIn">
-              <i class="fa-brands fa-linkedin text-2xl"></i>
-            </a>
-            <a href="https://wa.me/2349018827571" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="WhatsApp">
-              <i class="fa-brands fa-whatsapp text-2xl"></i>
-            </a>
-            <a href="https://github.com/Adams899591" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="GitHub">
-              <i class="fa-brands fa-github text-2xl"></i>
-            </a>
+   <!-- Our Products Section -->
+    {{-- <section class="bg-[#f8f9fa] py-12" id="shop">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <h2 class="mb-6 text-center text-2xl sm:text-3xl text-black font-bold tracking-wide uppercase">
+          Our Products
+        </h2>
+
+        <!-- Products Grid -->
+        <div id="append-featured-product" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+
+          {{-- Card 1 Note: Very important --}}
+          <div data-aos="fade-up" data-aos-duration="5000">
+            <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+              
+              {{-- @if(!empty($product->image)) --}}
+                  {{-- Normal Image View --}}
+                  {{-- <div class="relative overflow-hidden aspect-square">
+                    <img 
+                      src="{{ $product->image }}" 
+                      alt="{{ $product->name }}" 
+                      class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
+                    >
+                  </div>
+              @else --}}
+                  {{-- Standalone Fallback Component --}}
+                  <x-no-image-uploaded heightClass="aspect-square" />
+              {{-- @endif --}}
+
+              <div class="font-bold mt-3 text-[13px] sm:text-[1.1rem] text-black line-clamp-1">
+                {{ $product->name ?? 'Luxury Leather Handbag' }}
+              </div>
+              <div class="text-[15px] sm:text-[20px] text-black mb-2 flex items-center justify-center gap-1 font-bold">
+                <span class="text-lg sm:text-xl">&#8358;</span>
+                <span>{{ number_format($product->price ?? 25000) }}</span>
+              </div>
+              <a href="{{route("single-product")}}">
+                <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
+                  Buy Now
+                </button>
+              </a>
+            </div>
           </div>
-        </div>
 
-        <!-- Column 2: Quick Links -->
-        <div>
-          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-neutral-800 pb-2 inline-block sm:border-none sm:pb-0">Quick Links</h5>
-          <ul class="space-y-2.5 list-none p-0 m-0 text-sm">
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Home</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Shop</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Orders</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Wishlist</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Contact</a></li>
-          </ul>
-        </div>
+          <!-- Product Card 2 -->
+          <div data-aos="fade-up" data-aos-duration="5000">
+            <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+              <div class="relative overflow-hidden aspect-square">
+                <img 
+                  src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600&auto=format&fit=crop" 
+                  alt="Designer Men Sneakers" 
+                  class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
+                >
+              </div>
+              <div class="font-bold mt-3 text-[13px] sm:text-[1.1rem] text-black line-clamp-1">
+                Designer Men Sneakers
+              </div>
+              <div class="text-[15px] sm:text-[20px] text-black mb-2 flex items-center justify-center gap-1 font-bold">
+                <span class="text-lg sm:text-xl">&#8358;</span>
+                <span>42,500</span>
+              </div>
+              <a href="single.product.php?GetSingleProductId=2">
+                <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
+                  Buy Now
+                </button>
+              </a>
+            </div>
+          </div>
 
-        <!-- Column 3: Help -->
-        <div>
-          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-neutral-800 pb-2 inline-block sm:border-none sm:pb-0">Help & Info</h5>
-          <ul class="space-y-2.5 list-none p-0 m-0 text-sm">
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">FAQs</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Shipping Info</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Return Policy</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Privacy Policy</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Terms & Conditions</a></li>
-          </ul>
-        </div>
+          <!-- Product Card 3 -->
+          <div data-aos="fade-up" data-aos-duration="5000">
+            <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+              <div class="relative overflow-hidden aspect-square">
+                <img 
+                  src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" 
+                  alt="Classic Chronograph Watch" 
+                  class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
+                >
+              </div>
+              <div class="font-bold mt-3 text-[13px] sm:text-[1.1rem] text-black line-clamp-1">
+                Classic Chronograph Watch
+              </div>
+              <div class="text-[15px] sm:text-[20px] text-black mb-2 flex items-center justify-center gap-1 font-bold">
+                <span class="text-lg sm:text-xl">&#8358;</span>
+                <span>18,000</span>
+              </div>
+              <a href="single.product.php?GetSingleProductId=3">
+                <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
+                  Buy Now
+                </button>
+              </a>
+            </div>
+          </div>
 
-        <!-- Column 4: Newsletter -->
-        <div>
-          <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-neutral-800 pb-2 inline-block sm:border-none sm:pb-0">Newsletter</h5>
-          <p class="text-xs sm:text-sm text-gray-400 mb-4 leading-relaxed">
-            Subscribe to receive updates, access to exclusive deals, and more.
-          </p>
-          <form class="flex flex-col gap-2.5 w-full">
-            <input 
-              type="email" 
-              class="w-full px-3.5 py-2 text-sm bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white transition-colors" 
-              placeholder="Enter your email" 
-              required
-            >
-            <button 
-              type="submit" 
-              class="w-full px-4 py-2 bg-white text-black hover:bg-gray-200 text-sm font-bold rounded-lg transition-colors cursor-pointer tracking-wide uppercase"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
+          <!-- Product Card 4 -->
+          <div data-aos="fade-up" data-aos-duration="5000">
+            <div class="group relative bg-white rounded-[10px] overflow-hidden p-3 text-center transition-transform duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+              <div class="relative overflow-hidden aspect-square">
+                <img 
+                  {{-- src="{{asset("images/banner.png")}}"  --}}
+                  src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=600&auto=format&fit=crop" 
+                  alt="Luxury Designer Sunglasses" 
+                  class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
+                >
+              </div>
+              <div class="font-bold mt-3 text-[13px] sm:text-[1.1rem] text-black line-clamp-1">
+                Luxury Designer Sunglasses
+              </div>
+              <div class="text-[15px] sm:text-[20px] text-black mb-2 flex items-center justify-center gap-1 font-bold">
+                <span class="text-lg sm:text-xl">&#8358;</span>
+                <span>30,000</span>
+              </div>
+              <a href="single.product.php?GetSingleProductId=4">
+                <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
+                  Buy Now
+                </button>
+              </a>
+            </div>
+          </div>
 
+        </div>
       </div>
+    </section> --}}
 
-      <!-- Bottom Footer Row -->
-      <div class="flex flex-col sm:flex-row items-center justify-between border-t border-neutral-900 pt-6 mt-10 gap-4 text-center sm:text-left">
-        <div class="text-gray-500 text-xs">
-          © 2025 MAITANGARAN. All rights reserved.
-        </div>
-        <!-- Payment Badges using Web URLs -->
-        <div class="flex items-center space-x-3 bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800">
-          <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/master/mono/visa.svg" alt="Visa" width="36" class="h-5 object-contain brightness-200 opacity-80 hover:opacity-100 transition-opacity">
-          <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/master/mono/mastercard.svg" alt="Mastercard" width="36" class="h-5 object-contain brightness-200 opacity-80 hover:opacity-100 transition-opacity">
-          <img src="https://raw.githubusercontent.com/aaronfagan/svg-credit-card-payment-icons/master/mono/paypal.svg" alt="PayPal" width="36" class="h-5 object-contain brightness-200 opacity-80 hover:opacity-100 transition-opacity">
-        </div>
+
+    <!-- Load More Button Section -->
+    {{-- <section>
+      <div id="Featured-load-More-Btn" class="text-center mt-2 px-4">
+        <button class="bg-black hover:bg-gray-800 text-white border-none font-bold py-3 px-6 rounded shadow-md w-full min-[701px]:w-[40%] transition-colors duration-200 cursor-pointer uppercase tracking-wider text-sm">
+          Load More
+        </button>
       </div>
-
-    </div>
-  </footer> --}}
+    </section> --}}
