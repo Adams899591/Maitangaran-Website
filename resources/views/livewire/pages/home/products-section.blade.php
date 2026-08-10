@@ -10,48 +10,10 @@
       <!-- 1. INITIAL LOADING STATE (SKELETON GRID) -->
       @if($isLoading && $page === 1)
       <x-skeleton-loading/>
-        {{-- <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          @for ($i = 0; $i < 8; $i++)
-            <div>
-              <div class="relative bg-white rounded-[10px] overflow-hidden p-3 text-center shadow-[0_4px_12px_rgba(0,0,0,0.1)] animate-pulse">
-                <!-- White Shimmer Wave Overlay -->
-                <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/70 to-transparent animate-shimmer z-10 pointer-events-none"></div>
-
-                <!-- Image Placeholder -->
-                <div class="w-full aspect-square bg-gray-200 rounded-md mb-3"></div>
-
-                <!-- Title Line Skeleton -->
-                <div class="h-4 sm:h-5 bg-gray-200 rounded w-3/4 mx-auto mt-3 mb-2"></div>
-
-                <!-- Price Line Skeleton -->
-                <div class="h-5 sm:h-6 bg-gray-200 rounded w-1/2 mx-auto mb-2"></div>
-
-                <!-- Button Placeholder Skeleton -->
-                <div class="h-9 bg-gray-200 rounded w-24 mx-auto mt-2.5"></div>
-              </div>
-            </div>
-          @endfor
-        </div> --}}
 
       <!-- 2. NETWORK ERROR STATE -->
       @elseif($networkError && count($products) === 0)
       <x-fetch-error/>
-        {{-- <div class="bg-white rounded-[10px] p-8 text-center shadow-[0_4px_12px_rgba(0,0,0,0.1)] max-w-md mx-auto my-6 border border-red-100">
-          <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h12a4 4 0 001-7.9 5 5 0 00-9.9-1.2A4.5 4.5 0 003 15z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v4m0 4h.01"></path>
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold text-gray-900 mb-1">Failed to load products</h3>
-          <p class="text-xs sm:text-sm text-gray-500 mb-5">We couldn't reach the server. Please check your internet connection.</p>
-          <button 
-            wire:click="fetchProducts(1)" 
-            class="bg-black hover:bg-gray-800 text-white border-none py-2 px-6 rounded-full font-bold text-xs tracking-wider transition-all duration-300 cursor-pointer uppercase shadow-md active:scale-95"
-          >
-            Retry
-          </button>
-        </div> --}}
 
       <!-- 3. EMPTY PRODUCT STATE -->
       @elseif(count($products) === 0)
