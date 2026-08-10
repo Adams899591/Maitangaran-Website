@@ -1,100 +1,23 @@
 <?php
 
-// namespace App\Livewire\Pages;
-
-// use Illuminate\Support\Facades\Http;
-// use Illuminate\Support\Facades\Log;
-// use Livewire\Component;
- 
-// class SingleProductPage extends Component
-// {
-
-//     public $productId;
-
-//     public function mount()
-//     {
-//         // $id will hold "b832f712-614a-4c0b-b233-b3e2697c597d"
-//         $this->productId = request()->query('id');
-
-//         $this->fetchSingleProducts();
-//     }
-
-//      public function fetchSingleProducts()
-//     {
-//         // $this->isLoading = true;
-//         // $this->networkError = false;
-
-//         try {
-//             $baseUrl = config('services.ecommerce.url');
-//             $apiKey  = config('services.ecommerce.api');
-
-//             $response = Http::withHeaders([
-//                 'X-Api-Key'    => $apiKey,
-//                 'Content-Type' => 'application/json',
-//                 'Accept'       => 'application/json',
-//             ])->get("{$baseUrl}/products/{$this->productId}");
-
-//             Log::info($response->json());
-
-//             if ($response->successful() && $response->json('Success')) {
-
-//             } else {
-
-//             }
-//         } catch (\Throwable $th) {
-//             Log::error('Error fetching featured products: ' . $th->getMessage());
-
-//         } finally {
-
-//         }
-//     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     public function render()
-//     {
-//         return view('livewire.pages.single-product-page')->layout("layouts.pages.app");
-//     }
-// }
-
-
-
 namespace App\Livewire\Pages;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
-
+ 
 class SingleProductPage extends Component
 {
-    public ?string $productId = null;
-    public ?array $product = null;
-    public ?array $selectedVariant = null;
-    public ?string $activeImageUrl = null;
-    public int $quantity = 1;
-
-    public bool $isLoading = true;
-    public bool $networkError = false;
+    public $productId;
+    public $product = null;
+    public $isLoading = true;
+    public $networkError = false;
+    public $quantity = 1;
 
     public function mount()
     {
         $this->productId = request()->query('id');
-
-        if ($this->productId) {
-            $this->fetchSingleProduct();
-        } else {
-            $this->isLoading = false;
-        }
+        $this->fetchSingleProduct();
     }
 
     public function fetchSingleProduct()
@@ -114,87 +37,48 @@ class SingleProductPage extends Component
 
             Log::info($response->json());
 
-
             if ($response->successful() && $response->json('Success')) {
-                $this->product = $response->json('Data');
-
-                // Default selected variant if variants exist
-                if (!empty($this->product['Variants'])) {
-                    $this->selectedVariant = $this->product['Variants'][0];
+                $rawProduct = $response->json('Data');
+                
+                // Prepend base URL to image paths if they are relative
+                if (!empty($rawProduct['Images']) && is_array($rawProduct['Images'])) {
+                    foreach ($rawProduct['Images'] as &$img) {
+                        if (isset($img['FullImageUrl']) && str_starts_with($img['FullImageUrl'], '/')) {
+                            $img['FullImageUrl'] = rtrim($baseUrl, '/') . $img['FullImageUrl'];
+                        }
+                    }
                 }
 
-                // Determine initial main image URL
-                $this->setInitialImage();
+                $this->product = $rawProduct;
+
+                // Reset quantity to 1 or max stock if available
+                $stock = $rawProduct['StockLevel'] ?? 0;
+                $this->quantity = $stock > 0 ? 1 : 0;
             } else {
-                $this->product = null;
+                $this->networkError = true;
             }
         } catch (\Throwable $th) {
             Log::error('Error fetching single product: ' . $th->getMessage());
             $this->networkError = true;
-            $this->product = null;
         } finally {
             $this->isLoading = false;
         }
     }
 
-    private function setInitialImage()
+    public function adjustQty($change)
     {
-        // 1. Check direct large image
-        if (!empty($this->product['LargeImage'])) {
-            $this->activeImageUrl = $this->product['LargeImage'];
-            return;
-        }
-
-        // 2. Check images gallery array
-        if (!empty($this->product['Images'])) {
-            // Find featured image or fallback to first image
-            $featured = collect($this->product['Images'])->firstWhere('IsFeatured', true);
-            $img = $featured ?? $this->product['Images'][0];
-
-            $this->activeImageUrl = $img['FullImageUrl'] ?? $img['ImagePath'] ?? null;
-            return;
-        }
-
-        // 3. Fallback to small image
-        $this->activeImageUrl = $this->product['SmallImage'] ?? null;
-    }
-
-    public function selectImage(string $url)
-    {
-        $this->activeImageUrl = $url;
-    }
-
-    public function selectVariant(array $variant)
-    {
-        $this->selectedVariant = $variant;
-        $this->quantity = 1; // Reset qty when switching variants
-    }
-
-    public function adjustQuantity(int $change)
-    {
-        $stock = $this->getCurrentStock();
+        $maxStock = $this->product['StockLevel'] ?? 1;
         $newQty = $this->quantity + $change;
-
-        if ($newQty >= 1 && ($stock === null || $newQty <= $stock)) {
+        
+        if ($newQty >= 1 && $newQty <= $maxStock) {
             $this->quantity = $newQty;
         }
     }
 
-    public function getCurrentStock()
-    {
-        if ($this->selectedVariant) {
-            return $this->selectedVariant['StockLevel'] ?? $this->selectedVariant['Qty'] ?? 0;
-        }
-
-        return $this->product['StockLevel'] ?? 0;
-    }
-
     public function addToCart()
     {
-        $variantId = $this->selectedVariant['ID'] ?? null;
-        
-        // Add your cart logic or dispatch Livewire event here
-        session()->flash('message', 'Product added to cart!');
+        // Add your cart implementation logic here
+        session()->flash('message', 'Product added to cart successfully!');
     }
 
     public function render()
