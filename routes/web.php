@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogoutController;
 use App\Livewire\Pages\About;
 use App\Livewire\Pages\Cart;
 use App\Livewire\Pages\CartSuccess;
@@ -33,6 +34,8 @@ Route::prefix("page")->group(function(){
     Route::get('/single-product', SingleProductPage::class)->name("single-product");
 });
 
+
+Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 
 Route::prefix("auth")->group(function(){

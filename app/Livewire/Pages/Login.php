@@ -29,6 +29,8 @@ class Login extends Component
             'username' => trim($this->email), // Sent as 'username' just like React Native
             'password' => trim($this->password),
         ]);
+
+        Log::info($response->json());
       
 
         if ($response->successful() && $response->json('Success')) {

@@ -111,6 +111,7 @@ class SingleProductPage extends Component
         $variantID = $selectedImage['VariantID'] ?? null;
         $quantity  = $this->quantity;
 
+        
         Log::info("Adding to cart...", [
             'ID'        => $id,
             'ProductID' => $productID,
@@ -118,6 +119,11 @@ class SingleProductPage extends Component
             'quantity'  => $quantity,
         ]);
 
+
+        // Check if the user session key exists
+        if (!session()->has('user')) {
+            return  session()->flash('error', 'Please log in to access your cart.');
+        }
 
         // Redirect to the named route with query parameters
         return redirect()->route('cart', [
