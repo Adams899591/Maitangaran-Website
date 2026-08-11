@@ -1,122 +1,5 @@
 <?php
 
-// namespace App\Livewire\Pages;
-
-// use Illuminate\Support\Facades\Http;
-// use Illuminate\Support\Facades\Log;
-// use Livewire\Component;
- 
-// class SingleProductPage extends Component
-// {
-//     public $productId;
-//     public $product = null;
-//     public $isLoading = true;
-//     public $networkError = false;
-//     public $quantity = 1;
-
-//     public function mount()
-//     {
-//         $this->productId = request()->query('id');
-//         $this->fetchSingleProduct();
-//     }
-
-
-
-
-//     // public function fetchSingleProduct()
-//     // {
-//     //     $this->isLoading = true;
-//     //     $this->networkError = false;
-
-//     //     try {
-//     //         $baseUrl = config('services.ecommerce.url');
-//     //         $apiKey  = config('services.ecommerce.api');
-//     //         $imageUrl = "https://swiftclouderp.com";
-
-//     //         $response = Http::withHeaders([
-//     //             'X-Api-Key'    => $apiKey,
-//     //             'Content-Type' => 'application/json',
-//     //             'Accept'       => 'application/json',
-//     //         ])->get("{$baseUrl}/products/{$this->productId}");
-
-//     //         Log::info($response->json());
-//     //         Log::info("00000000000000000000000000000000000000000000000000000000000");
-
-
-//     //         if ($response->successful() && $response->json('Success')) {
-//     //             $rawProduct = $response->json('Data');
-                
-//     //             // Prepend base URL to image paths if they are relative
-//     //             if (!empty($rawProduct['Images']) && is_array($rawProduct['Images'])) {
-//     //                 foreach ($rawProduct['Images'] as &$img) {
-//     //                     if (isset($img['FullImageUrl']) && str_starts_with($img['FullImageUrl'], 'https://swiftclouderp.com')) {
-//     //                         $img['FullImageUrl'] = rtrim($baseUrl, 'https://swiftclouderp.com') . $img['FullImageUrl'];
-//     //                     }
-//     //                 }
-//     //             }
-
-//     //             $this->product = $rawProduct;
-
-//     //             // Reset quantity to 1 or max stock if available
-//     //             $stock = $rawProduct['StockLevel'] ?? 0;
-//     //             $this->quantity = $stock > 0 ? 1 : 0;
-//     //         } else {
-//     //             $this->networkError = true;
-//     //         }
-//     //     } catch (\Throwable $th) {
-//     //         Log::error('Error fetching single product: ' . $th->getMessage());
-//     //         $this->networkError = true;
-//     //     } finally {
-//     //         $this->isLoading = false;
-//     //     }
-//     // }
-
-
-  
-
-
-
-
-
-
-
-//     public function adjustQty($change)
-//     {
-//         $maxStock = $this->product['StockLevel'] ?? 1;
-//         $newQty = $this->quantity + $change;
-        
-//         if ($newQty >= 1 && $newQty <= $maxStock) {
-//             $this->quantity = $newQty;
-//         }
-//     }
-
-//     public function addToCart()
-//     {
-//         // Add your cart implementation logic here
-//         session()->flash('message', 'Product added to cart successfully!');
-//     }
-
-//     public function render()
-//     {
-//         return view('livewire.pages.single-product-page')->layout("layouts.pages.app");
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 namespace App\Livewire\Pages;
 
 use Illuminate\Support\Facades\Http;
@@ -130,6 +13,7 @@ class SingleProductPage extends Component
     public $isLoading = true;
     public $networkError = false;
     public $quantity = 1;
+    public $selectedImageId = null; // Changed to track selected Image ID
 
     public function mount()
     {
@@ -153,17 +37,14 @@ class SingleProductPage extends Component
                 'Accept'       => 'application/json',
             ])->get("{$baseUrl}/products/{$this->productId}");
 
-            // Log::info($response->json());
-            // Log::info("00000000000000000000000000000000000000000000000000000000000");
+            Log::info($response->json());
 
             if ($response->successful() && $response->json('Success')) {
                 $rawProduct = $response->json('Data');
                 
-                // Prepend base domain to image paths if they are relative
                 if (!empty($rawProduct['Images']) && is_array($rawProduct['Images'])) {
                     foreach ($rawProduct['Images'] as &$img) {
                         if (isset($img['FullImageUrl'])) {
-                            // If it starts with / or folio/, attach the full domain
                             if (str_starts_with($img['FullImageUrl'], '/')) {
                                 $img['FullImageUrl'] = $imageDomain . $img['FullImageUrl'];
                             } elseif (!str_starts_with($img['FullImageUrl'], 'http')) {
@@ -183,7 +64,11 @@ class SingleProductPage extends Component
 
                 $this->product = $rawProduct;
 
-                // Reset quantity to 1 or max stock if available
+                // Set initial selectedImageId from featured image or default to first image ID
+                $images = $rawProduct['Images'] ?? [];
+                $featured = collect($images)->firstWhere('IsFeatured', true) ?? ($images[0] ?? null);
+                $this->selectedImageId = $featured['ID'] ?? null;
+
                 $stock = $rawProduct['StockLevel'] ?? 0;
                 $this->quantity = $stock > 0 ? 1 : 0;
             } else {
@@ -195,6 +80,11 @@ class SingleProductPage extends Component
         } finally {
             $this->isLoading = false;
         }
+    }
+
+    public function selectImage($imageId)
+    {
+        $this->selectedImageId = $imageId;
     }
 
     public function adjustQty($change)
@@ -209,8 +99,24 @@ class SingleProductPage extends Component
 
     public function addToCart()
     {
-        // Add your cart implementation logic here
-        session()->flash('message', 'Product added to cart successfully!');
+        $images = $this->product['Images'] ?? [];
+
+        // Find selected image by its unique ID
+        $selectedImage = collect($images)->firstWhere('ID', $this->selectedImageId)
+            ?? collect($images)->firstWhere('IsFeatured', true)
+            ?? ($images[0] ?? []);
+
+        $id        = $selectedImage['ID'] ?? null;
+        $productID = $this->product['ProductID'] ?? $this->productId;
+        $variantID = $selectedImage['VariantID'] ?? null;
+        $quantity  = $this->quantity;
+
+        Log::info("Adding to cart...", [
+            'ID'        => $id,
+            'ProductID' => $productID,
+            'VariantID' => $variantID,
+            'quantity'  => $quantity,
+        ]);
     }
 
     public function render()
@@ -218,3 +124,12 @@ class SingleProductPage extends Component
         return view('livewire.pages.single-product-page')->layout("layouts.pages.app");
     }
 }
+
+
+
+
+
+
+
+
+
