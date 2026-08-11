@@ -117,6 +117,18 @@ class SingleProductPage extends Component
             'VariantID' => $variantID,
             'quantity'  => $quantity,
         ]);
+
+
+        // Redirect to the named route with query parameters
+        return redirect()->route('cart', [
+            'id'         => $id,
+            'product_id' => $productID,
+            'variant_id' => $variantID,
+            'quantity'   => $quantity,
+        ]);
+
+
+
     }
 
     public function render()

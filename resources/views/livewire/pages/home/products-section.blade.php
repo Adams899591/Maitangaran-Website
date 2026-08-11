@@ -13,7 +13,7 @@
 
       <!-- 2. NETWORK ERROR STATE -->
       @elseif($networkError && count($products) === 0)
-      <x-fetch-error/>
+      <x-fetch-error retry-action="fetchProducts" />
 
       <!-- 3. EMPTY PRODUCT STATE -->
       @elseif(count($products) === 0)
