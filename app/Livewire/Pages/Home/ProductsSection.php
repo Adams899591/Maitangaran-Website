@@ -43,6 +43,9 @@ class ProductsSection extends Component
                 'limit' => 20,
             ]);
 
+            // Log::info($response->json());
+
+
             if ($response->successful() && $response->json('Success')) {
                 $newData = $response->json('Data') ?? [];
 
