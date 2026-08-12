@@ -46,7 +46,7 @@
                         @endif
 
                         <!-- Thumbnails -->
-                       {{-- @if(count($images) > 1) --}}
+                       @if(count($images) > 1)
                             <div class="mt-4 flex flex-wrap justify-between gap-2">
                                 @forelse($images as $img)
                                     <div 
@@ -63,7 +63,7 @@
                                     <div class="w-full text-center text-xs text-gray-400 py-2">No additional images available</div>
                                 @endforelse
                             </div>
-                        {{-- @endif --}}
+                        @endif
                     </div>  
 
                     <!-- Add to Cart Section -->
@@ -99,6 +99,61 @@
                                         No description made for this product.
                                     </div>  
                                 @endif
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Product Variants Section -->
+<div class="mt-6 space-y-4 border-t border-b border-gray-200 py-4">
+    <div>
+        <!-- Label -->
+        <label class="block text-sm font-medium text-gray-700">
+            Select Option
+        </label>
+
+        <!-- Variant Name Display (Truncated if too long) -->
+        <p class="text-xs text-gray-500 mt-0.5 mb-3 truncate max-w-full" title="BERTOZZI 477041 - Extra Long Variant Name Here">
+            <span class="font-medium text-gray-700">Variant:</span> BERTOZZI 477041 -
+        </p>
+
+        <!-- Options Grid/Flex -->
+        <div class="flex flex-wrap gap-2">
+            <!-- Active Option -->
+            <button type="button" 
+                class="px-4 py-2 text-sm font-medium rounded-lg border-2 border-indigo-600 bg-indigo-50 text-indigo-700 shadow-sm focus:outline-none transition-colors">
+                Option 1
+            </button>
+
+            <!-- Inactive Option -->
+            <button type="button" 
+                class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none transition-colors">
+                Option 2
+            </button>
+
+            <!-- Disabled / Out of Stock Option -->
+            <button type="button" disabled 
+                class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed line-through">
+                Option 3
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
                             </div>
 
                             {{-- Show error message if user is not login --}}
