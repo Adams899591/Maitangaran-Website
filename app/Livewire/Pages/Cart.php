@@ -1,44 +1,11 @@
 <?php
 
-// namespace App\Livewire\Pages;
-
-// use Illuminate\Http\Request;
-// use Livewire\Component;
-
-// class Cart extends Component
-// {
-
-//     public $imageId;
-//     public $productId;
-//     public $variantId;
-//     public $quantity;
-
-//     public function mount(Request $request)
-//     {
-//         // Read the parameters passed from the URL
-//         $this->imageId   = $request->query('id');
-//         $this->productId = $request->query('product_id');
-//         $this->variantId = $request->query('variant_id');
-//         $this->quantity  = $request->query('quantity', 1);
-
-   
-//     }
-
-
-//     public function render()
-//     {
-//         return view('livewire.pages.cart')->layout("layouts.pages.app");
-//     }
-// }
-
-
-
-
 namespace App\Livewire\Pages;
 
 use Livewire\Component;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class Cart extends Component
 {
@@ -53,6 +20,7 @@ class Cart extends Component
 
     public function mount(Request $request)
     {
+        // $variantId = $request->query('id');         // NOTE: this is not used
         $productId = $request->query('product_id');
         $variantId = $request->query('variant_id');
         $quantity  = (int) $request->query('quantity', 1);
@@ -82,6 +50,8 @@ class Cart extends Component
         try {
             $baseUrl = config('services.ecommerce.url');
             $response = Http::withHeaders($this->getHeaders())->get($baseUrl . '/cart');
+                        Log::info("00000000000000000000000000000000000000000000");
+            Log::info($response->json());
             $data = $response->json();
 
             if ($response->successful() && ($data['Success'] ?? false)) {

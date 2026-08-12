@@ -46,7 +46,7 @@
                         @endif
 
                         <!-- Thumbnails -->
-                       @if(count($images) > 1)
+                       {{-- @if(count($images) > 1) --}}
                             <div class="mt-4 flex flex-wrap justify-between gap-2">
                                 @forelse($images as $img)
                                     <div 
@@ -63,7 +63,7 @@
                                     <div class="w-full text-center text-xs text-gray-400 py-2">No additional images available</div>
                                 @endforelse
                             </div>
-                        @endif
+                        {{-- @endif --}}
                     </div>  
 
                     <!-- Add to Cart Section -->
