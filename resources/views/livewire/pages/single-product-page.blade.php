@@ -1,3 +1,22 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div>
     <div class="bg-gray-50 min-h-screen py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -8,20 +27,31 @@
                    <x-fetch-error retry-action="fetchSingleProduct" />
             @else
                 @php
-                    $images = $product['Images'] ?? [];
+                    $allImages = $this->getAllImages();
                     
-                    // Match selected image by selectedImageId
-                    $selectedImage = collect($images)->firstWhere('ID', $selectedImageId) 
-                        ?? collect($images)->firstWhere('IsFeatured', true) 
-                        ?? ($images[0] ?? null);
+                    // Get current active variant if selected
+                    $variants = $product['Variants'] ?? [];
+                    $selectedVariant = collect($variants)->firstWhere('ID', $selectedVariantId);
 
-                    $featuredImage = $selectedImage['FullImageUrl'] ?? ($product['ImagePath'] ?? null);
+                    // Determine active price: Variant Rate if chosen, otherwise Base SellingPrice
+                    if ($selectedVariant) {
+                        $sellingPrice = $selectedVariant['Rate'] ?? $product['SellingPrice'] ?? 0;
+                        $onlineRate = $selectedVariant['OnlineRate'] ?? 0;
+                    } else {
+                        $sellingPrice = $product['SellingPrice'] ?? 0;
+                        $onlineRate = $product['OnlineRate'] ?? 0;
+                    }
 
-                    $sellingPrice = $product['SellingPrice'] ?? 0;
-                    $onlineRate = $product['OnlineRate'] ?? 0;
                     $hasDiscount = $onlineRate > 0 && $onlineRate < $sellingPrice;
                     $displayPrice = $hasDiscount ? $onlineRate : $sellingPrice;
-                    $stockLevel = $product['StockLevel'] ?? 0;
+                    $stockLevel = $this->getAvailableStock();
+
+                    // Selected image logic
+                    $selectedImage = collect($allImages)->firstWhere('ID', $selectedImageId) 
+                        ?? collect($allImages)->firstWhere('IsFeatured', true) 
+                        ?? ($allImages[0] ?? null);
+
+                    $featuredImage = $selectedImage['FullImageUrl'] ?? ($product['ImagePath'] ?? null);
                 @endphp
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -46,12 +76,12 @@
                         @endif
 
                         <!-- Thumbnails -->
-                       @if(count($images) > 1)
-                            <div class="mt-4 flex flex-wrap justify-between gap-2">
-                                @forelse($images as $img)
+                       @if(count($allImages) > 1)
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                @forelse($allImages as $img)
                                     <div 
                                         wire:click="selectImage('{{ $img['ID'] }}')" 
-                                        class="w-[22%] h-20 bg-gray-900 rounded-md overflow-hidden flex items-center justify-center relative cursor-pointer border-2 {{ $selectedImageId === $img['ID'] ? 'border-slate-700' : 'border-transparent' }}"
+                                        class="w-[22%] h-20 bg-gray-900 rounded-md overflow-hidden flex items-center justify-center relative cursor-pointer border-2 {{ $selectedImageId === $img['ID'] ? 'border-indigo-600 ring-2 ring-indigo-300' : 'border-transparent' }}"
                                     >
                                         <img 
                                             src="{{ $img['FullImageUrl'] ?? '' }}" 
@@ -60,20 +90,20 @@
                                         >
                                     </div>
                                 @empty
-                                    <div class="w-full text-center text-xs text-gray-400 py-2">No additional images available</div>
+                                    <div class="w-full text-center text-xs text-gray-400 py-2">No images available</div>
                                 @endforelse
                             </div>
                         @endif
                     </div>  
 
-                    <!-- Add to Cart Section -->
+                    <!-- Product Specs & Form Section -->
                     <div>  
                         <div class="bg-white rounded-xl shadow-lg p-6 h-full flex flex-col justify-between">  
                             <div>
                                 <!-- Product Title -->
                                 <h1 class="text-3xl font-semibold text-gray-900 mb-2">{{ $product['ProductName'] }}</h1>  
                                 
-                                <!-- Price -->
+                                <!-- Price Display -->
                                 <div class="flex items-center gap-2 my-2 text-black text-2xl font-medium"> 
                                     <span class="font-bold">₦ {{ number_format($displayPrice) }}</span>
                                     @if($hasDiscount)
@@ -85,89 +115,73 @@
                                 <div class="mb-4">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $stockLevel > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                         <span class="w-2 h-2 mr-1.5 {{ $stockLevel > 0 ? 'bg-green-500' : 'bg-red-500' }} rounded-full"></span>
-                                        {{ $stockLevel > 0 ? $stockLevel . ' items left in stock' : 'Out of stock' }}
+                                        {{ $stockLevel > 0 ? number_format($stockLevel) . ' items left in stock' : 'Out of stock' }}
                                     </span>
                                 </div>
 
                                 <!-- Description -->
                                 @if(!empty($product['Description']))
-                                    <div class="text-gray-600 font-bold text-base leading-relaxed mb-6">  
+                                    <div class="text-gray-600 font-medium text-base leading-relaxed mb-6">  
                                         {{ $product['Description'] }}
                                     </div>  
                                 @else
-                                    <div class="text-gray-600 font-bold text-base leading-relaxed mb-6">     
-                                        No description made for this product.
+                                    <div class="text-gray-400 font-normal text-sm italic mb-6">     
+                                        No description available for this product.
                                     </div>  
                                 @endif
 
+                                <!-- Dynamic Product Variants Section -->
+                                @if(!empty($variants))
+                                    <div class="mt-6 space-y-4 border-t border-b border-gray-200 py-4">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                                Select Option
+                                            </label>
 
+                                            <!-- Selected Variant Label -->
+                                            <p class="text-xs text-gray-500 mb-3 truncate max-w-full">
+                                                <span class="font-medium text-gray-700">Selected Option:</span> 
+                                                <span class="text-indigo-600 font-semibold">{{ $selectedVariant['Attribute'] ?? 'Default / None' }}</span>
+                                            </p>
 
+                                            <!-- Variant Buttons -->
+                                            <div class="flex flex-wrap gap-2">
+                                                @foreach($variants as $v)
+                                                    @php
+                                                        $vStock = $v['Qty'] ?? $v['StockLevel'] ?? 0;
+                                                        $isOut = $vStock <= 0;
+                                                        $isSelected = $selectedVariantId === $v['ID'];
+                                                        $vName = $v['Attribute'] ?? $v['Value'] ?? 'Option ' . ($loop->index + 1);
+                                                    @endphp
 
-
-
-
-
-
-
-
-
-<!-- Product Variants Section -->
-<div class="mt-6 space-y-4 border-t border-b border-gray-200 py-4">
-    <div>
-        <!-- Label -->
-        <label class="block text-sm font-medium text-gray-700">
-            Select Option
-        </label>
-
-        <!-- Variant Name Display (Truncated if too long) -->
-        <p class="text-xs text-gray-500 mt-0.5 mb-3 truncate max-w-full" title="BERTOZZI 477041 - Extra Long Variant Name Here">
-            <span class="font-medium text-gray-700">Variant:</span> BERTOZZI 477041 -
-        </p>
-
-        <!-- Options Grid/Flex -->
-        <div class="flex flex-wrap gap-2">
-            <!-- Active Option -->
-            <button type="button" 
-                class="px-4 py-2 text-sm font-medium rounded-lg border-2 border-indigo-600 bg-indigo-50 text-indigo-700 shadow-sm focus:outline-none transition-colors">
-                Option 1
-            </button>
-
-            <!-- Inactive Option -->
-            <button type="button" 
-                class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none transition-colors">
-                Option 2
-            </button>
-
-            <!-- Disabled / Out of Stock Option -->
-            <button type="button" disabled 
-                class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed line-through">
-                Option 3
-            </button>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
+                                                    <button 
+                                                        type="button" 
+                                                        wire:click="selectVariant('{{ $v['ID'] }}')"
+                                                        @if($isOut) disabled @endif
+                                                        class="px-4 py-2 text-sm font-medium rounded-lg transition-colors focus:outline-none 
+                                                            {{ $isSelected ? 'border-2 border-indigo-600 bg-indigo-50 text-indigo-700 shadow-sm' : 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50' }}
+                                                            {{ $isOut ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed line-through' : '' }}"
+                                                    >
+                                                        {{ $vName }}
+                                                    </button>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
 
                             </div>
 
-                            {{-- Show error message if user is not login --}}
+                            <!-- Session Error Alert -->
                             @if (session()->has('error'))
-                                <div class="mb-6 flex items-center justify-between gap-4 rounded-xl border border-red-200 bg-red-50 p-4 text-red-800 shadow-sm">
+                                <div class="my-4 flex items-center justify-between gap-4 rounded-xl border border-red-200 bg-red-50 p-4 text-red-800 shadow-sm">
                                     <div class="flex items-center gap-3">
-                                        <!-- Warning/Alert Icon -->
                                         <svg class="h-5 w-5 flex-shrink-0 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                                         </svg>
                                         <span class="text-sm font-medium">{{ session('error') }}</span>
                                     </div>
 
-                                    <!-- Direct Login Button -->
                                     <a href="{{ route('login') }}" class="inline-flex flex-shrink-0 items-center gap-1 rounded-lg bg-red-600 px-3.5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors" wire:navigate >
                                         Log In
                                         <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,18 +191,17 @@
                                 </div>
                             @endif
 
-                            
-                             <!-- Livewire Form Action -->
-                            <form wire:submit.prevent="addToCart" class="space-y-6">
+                            <!-- Add to Cart Form -->
+                            <form wire:submit.prevent="addToCart" class="space-y-6 mt-4">
                                 @if($stockLevel > 0)
-                                    <!-- Quantity Box -->  
+                                    <!-- Quantity Picker -->  
                                     <div class="flex items-center gap-2 mb-4">  
                                         <button type="button" wire:click="adjustQty(-1)" class="bg-slate-700 hover:bg-slate-800 text-white border-none px-3 py-1.5 rounded text-base transition-colors">-</button>  
                                         <input type="number" wire:model="quantity" min="1" max="{{ $stockLevel }}" class="w-16 text-center border border-gray-300 rounded-md py-1.5 focus:outline-none focus:ring-2 focus:ring-slate-700" />  
                                         <button type="button" wire:click="adjustQty(1)" class="bg-slate-700 hover:bg-slate-800 text-white border-none px-3 py-1.5 rounded text-base transition-colors">+</button>  
                                     </div>
 
-                                    <!-- Add to Cart Button -->
+                                    <!-- Submit Button -->
                                     <button type="submit" wire:loading.attr="disabled" wire:target="addToCart" class="w-full bg-slate-700 hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed text-white border-none py-3 px-6 rounded-lg font-semibold text-base transition-all duration-200 shadow-md">
                                         <span wire:loading.remove wire:target="addToCart" class="inline">Add to Cart</span>
                                         <span wire:loading wire:target="addToCart" class="inline-flex items-center justify-center gap-2 w-full">
