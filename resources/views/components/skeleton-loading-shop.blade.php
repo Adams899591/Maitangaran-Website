@@ -83,7 +83,7 @@
                 <!-- Products Grid Skeleton -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     
-                    @foreach(range(1, 8) as $product)
+                    @foreach(range(1, 4) as $product)
                         <div class="bg-white rounded-[10px] p-3 shadow-[0_4px_12px_rgba(0,0,0,0.08)] border border-gray-100 h-full flex flex-col justify-between relative overflow-hidden">
                             
                             <!-- Shimmer Overlay for Product Card -->
