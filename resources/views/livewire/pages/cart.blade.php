@@ -446,7 +446,7 @@
           </div>
 
           <a 
-            href="{{ route('checkout') }}" 
+            href="{{ route('shipping-details') }}" 
             wire:navigate
             class="block w-full text-center bg-black hover:bg-gray-800 text-white font-bold py-3.5 px-4 rounded-md transition-colors duration-300 text-sm shadow-sm cursor-pointer mt-2"
           >

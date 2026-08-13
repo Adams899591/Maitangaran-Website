@@ -90,6 +90,9 @@ class Cart extends Component
                 ]
             ]);
 
+            Log::info("00000000000 Add tocart response 00000000000000");
+            Log::info($response->json());
+
             if ($response->successful()) {
                 session()->flash('success', 'Item added to cart.');
             }
