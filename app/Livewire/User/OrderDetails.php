@@ -71,7 +71,7 @@ class OrderDetails extends Component
 
         try {
             // Callback URL back to order details or ledger
-            $redirectUrl = route('order.details', ['InvoiceID' => $this->invoiceId]);
+            // $redirectUrl = route('order.details', ['InvoiceID' => $this->invoiceId]);
 
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
@@ -80,8 +80,8 @@ class OrderDetails extends Component
                 'Accept'        => 'application/json',
             ])->post("{$baseUrl}/payment/initialize", [
                 'invoiceID'  => $this->invoiceId,
-                'successUrl' => $redirectUrl,
-                'failureUrl' => $redirectUrl,
+                // 'successUrl' => $redirectUrl,
+                // 'failureUrl' => $redirectUrl,
             ]);
 
             $data = $response->json();

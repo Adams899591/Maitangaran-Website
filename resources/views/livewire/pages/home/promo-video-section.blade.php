@@ -7,7 +7,7 @@
         <!-- Left Column: Content & Buttons -->
         <div class="space-y-4 text-center lg:text-left">
           <span class="bg-black/5 text-gray-700 text-[11px] font-bold uppercase px-3 py-1 rounded-full inline-block tracking-wider border border-gray-300">
-            Cartévo Mobile App
+            Maitangaran Mobile App
           </span>
           
           <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-black">

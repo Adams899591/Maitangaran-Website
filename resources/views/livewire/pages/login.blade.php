@@ -1,4 +1,4 @@
-<div class="max-w-md mx-auto px-4 py-16 md:py-24" x-data="{ email: '', password: '' }">
+<div class="max-w-md mx-auto px-4 py-16 md:py-24" x-data="{ username: '', password: '' }">
   <div class="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 p-8 md:p-10">
     
     <!-- Header Section -->
@@ -15,19 +15,19 @@
     <!-- Login Form -->
     <form wire:submit.prevent="login" class="space-y-5">
       
-      <!-- Email Address / Username -->
+      <!-- username Address / Username -->
       <div>
-        <label for="email" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Email Address</label>
+        <label for="username" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Username</label>
         <input 
           type="text" 
-          id="email" 
-          wire:model.blur="email" 
-          x-model="email"
-          placeholder="e.g. john@example.com"
+          id="username" 
+          wire:model.blur="username" 
+          x-model="username"
+          placeholder="e.g. JohnDoe123"
           class="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
           required
         />
-        @error('email') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
+        @error('username') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
       </div>
 
       <!-- Password -->
@@ -62,7 +62,7 @@
       <!-- Submit Button -->
       <button 
         type="submit" 
-        :disabled="!email || !password"
+        :disabled="!username || !password"
         wire:loading.attr="disabled"
         wire:target="login"
         class="w-full mt-2 py-3.5 bg-black hover:bg-gray-800 text-white font-bold text-sm rounded-lg transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed text-center shadow-md"

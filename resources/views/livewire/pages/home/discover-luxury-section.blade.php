@@ -26,7 +26,7 @@
             <!-- First Pass -->
             <div class="flex items-center space-x-6 shrink-0">
             <span class="flex items-center gap-2 text-amber-400 font-bold">
-                <i class="fas fa-store text-base"></i> Welcome to Cartévo
+                <i class="fas fa-store text-base"></i> Welcome to Maitangaran
             </span>
             <span class="text-gray-600 text-xs">◆</span>
             <span class="flex items-center gap-2">
@@ -53,7 +53,7 @@
             <!-- Duplicate Pass (Ensures continuous seamless looping) -->
             <div class="flex items-center space-x-6 shrink-0" aria-hidden="true">
             <span class="flex items-center gap-2 text-amber-400 font-bold">
-                <i class="fas fa-store text-base"></i> Welcome to Cartévo
+                <i class="fas fa-store text-base"></i> Welcome to Maitangaran
             </span>
             <span class="text-gray-600 text-xs">◆</span>
             <span class="flex items-center gap-2">

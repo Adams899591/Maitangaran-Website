@@ -17,7 +17,7 @@ class ProductsSection extends Component
 
     public function mount()
     {
-      
+       
         $this->fetchProducts(1);
     }
 

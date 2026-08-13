@@ -32,6 +32,12 @@ class Cart extends Component
         }
     }
 
+    public function sessionCartQuantity(){
+        session([
+            "totalCartQuantity" => $this->totalQuantity,
+        ]);
+    }
+
     private function getHeaders(): array
     {
         return [
@@ -50,8 +56,8 @@ class Cart extends Component
         try {
             $baseUrl = config('services.ecommerce.url');
             $response = Http::withHeaders($this->getHeaders())->get($baseUrl . '/cart');
-                        Log::info("00000000000000000000000000000000000000000000");
-            Log::info($response->json());
+            //             Log::info("00000000000000000000000000000000000000000000");
+            // Log::info($response->json());
             $data = $response->json();
 
             if ($response->successful() && ($data['Success'] ?? false)) {
@@ -68,6 +74,9 @@ class Cart extends Component
                     $this->quantities[$itemId] = $item['Quantity'] ?? 1;
                     $this->totalQuantity += $item['Quantity'] ?? 1;
                 }
+
+                $this->sessionCartQuantity();
+                $this->dispatch('cart-updated', totalQuantity: $this->totalQuantity);
             } else {
                 $this->networkError = true;
             }
@@ -161,6 +170,8 @@ class Cart extends Component
                 $this->subtotal = 0;
                 $this->totalAmount = 0;
                 $this->totalQuantity = 0;
+                $this->sessionCartQuantity();
+                $this->dispatch('cart-updated', totalQuantity: 0);
                 session()->flash('success', 'Cart cleared.');
             }
         } catch (\Throwable $th) {

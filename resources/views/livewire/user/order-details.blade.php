@@ -1,18 +1,6 @@
 <div class="max-w-5xl mx-auto px-4 py-8 md:py-12 space-y-8">
   
  
-  <!-- Flash Messages -->
-  @if (session()->has('success'))
-    <div class="p-4 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-sm font-semibold">
-      {{ session('success') }}
-    </div>
-  @endif
-
-  @if (session()->has('error'))
-    <div class="p-4 bg-red-50 text-red-700 border border-red-200 rounded-xl text-sm font-semibold">
-      {{ session('error') }}
-    </div>
-  @endif
 
   <!-- Back to Ledger Navigation -->
   <div>
@@ -200,6 +188,20 @@
           &#8358;{{ number_format($balanceDue, 2) }}
         </span>
       </div>
+
+
+            <!-- Flash Messages -->
+      @if (session()->has('success'))
+        <div class="p-4 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-sm font-semibold">
+          {{ session('success') }}
+        </div>
+      @endif
+
+      @if (session()->has('error'))
+        <div class="p-4 bg-red-50 text-red-700 border border-red-200 rounded-xl text-sm font-semibold">
+          {{ session('error') }}
+        </div>
+      @endif
 
       <!-- 5. Bottom Action Buttons -->
       @if($canPay || $canCancel)

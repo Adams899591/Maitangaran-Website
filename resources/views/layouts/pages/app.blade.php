@@ -50,18 +50,24 @@
 
           <ul class="flex items-center mb-0 list-none space-x-6">
             {{-- <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ url('/trending') }}" wire:navigate><b>Trending</b></a></li> --}}
-            <li>
-              <a class="text-gray-900 font-medium hover:text-black transition-colors no-underline inline-flex items-center gap-2" href="{{ route('cart') }}" wire::navigate>
-                  <div class="relative inline-flex items-center">
-                    <!-- Shopping Cart Icon -->
-                    {{-- <i class="fas fa-shopping-cart text-lg"></i> --}}
-                    <!-- Red Notification Number Badge -->
-                    {{-- <span class="absolute -top-2 -right-2.5 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full leading-tight">0</span> --}}
-                  </div>
+            <li x-data="{ totalQuantity: {{ session('totalCartQuantity', 0) }} }" x-on:cart-updated.window="totalQuantity = $event.detail.totalQuantity">
+              <a class="text-gray-900 font-medium hover:text-black transition-colors no-underline inline-flex items-center gap-2" href="{{ route('cart') }}" wire:navigate>
+                  <template x-if="totalQuantity > 0">
+                    <div class="relative inline-flex items-center" >
+                      <i class="fas fa-shopping-cart text-lg"></i>
+                      <span
+                          x-text="totalQuantity"
+                          class="absolute -top-2 -right-2.5 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full"
+                          x-transition:enter="transition ease-out duration-200"
+                          x-transition:enter-start="opacity-0 scale-90"
+                          x-transition:enter-end="opacity-100 scale-100"
+                      ></span>
+                    </div> 
+                  </template>
                   <span class="font-bold">Cart</span>
                 </a>
             </li>
-            <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ route('login') }}"  wire::navigate><b>Account</b></a></li>
+            <li><a class="text-gray-900 font-medium hover:text-black transition-colors no-underline" href="{{ session('user') ? route('dashboard') : route('login') }}"  wire:navigate><b>Account</b></a></li>
           </ul>                            
         </div>
       </div>
@@ -107,19 +113,25 @@
              <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('contact') }}"  wire:navigate><b>Contact</b></a></li>
              <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('about') }}"  wire:navigate><b>About</b></a></li>
              {{-- <li><a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('/trending') }}"><b>Trending</b></a></li> --}}
-             <li>
+             <li x-data="{ totalQuantity: {{ session('totalCartQuantity', 0) }} }" x-on:cart-updated.window="totalQuantity = $event.detail.totalQuantity">
                <a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline flex items-center justify-between group" href="{{ route('cart') }}"  wire:navigate>
                   <b>Cart</b>
                   <div class="relative inline-flex items-center">
-                    <div class="bg-gray-100 group-hover:bg-neutral-800 px-3 py-1 rounded-full flex items-center gap-2 transition-colors">
-                      <i class="fas fa-shopping-cart text-gray-900 group-hover:text-white text-sm"></i>
-                      <span class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full leading-tight">0</span>
-                    </div>
+                    <template x-if="totalQuantity > 0">
+                      <div class="bg-gray-100 group-hover:bg-neutral-800 px-3 py-1 rounded-full flex items-center gap-2 transition-colors">
+                        <i class="fas fa-shopping-cart text-gray-900 group-hover:text-white text-sm"></i>
+                        <span x-text="totalQuantity" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full leading-tight"
+                          x-transition:enter="transition ease-out duration-200"
+                          x-transition:enter-start="opacity-0 scale-90"
+                          x-transition:enter-end="opacity-100 scale-100"
+                        ></span>
+                      </div>
+                    </template>
                   </div>
               </a>
              </li>
              <li class="pt-2 border-t border-gray-100 mt-2">
-               <a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{ route('login') }}"  wire:navigate><b>Account</b></a>
+               <a @click="mobileMenuOpen = false" class="block w-full py-3 px-4 rounded-lg text-gray-900 font-medium hover:text-white hover:bg-gray-900 transition-all no-underline" href="{{  session('user') ? route('dashboard') : route('login') }}"  wire:navigate><b>Account</b></a>
              </li>
            </ul>
          </div>

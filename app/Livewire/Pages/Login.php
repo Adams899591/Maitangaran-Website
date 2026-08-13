@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public $email; // (Note: You can keep the variable name $email from your form, but pass it as 'username' to the API)
+    public $username; // (Note: You can keep the variable name $username from your form, but pass it as 'username' to the API)
     public $password;
 
     public function login()
@@ -26,7 +26,7 @@ class Login extends Component
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ])->post($baseUrl . '/auth/login', [
-            'username' => trim($this->email), // Sent as 'username' just like React Native
+            'username' => trim($this->username), // Sent as 'username' just like React Native
             'password' => trim($this->password),
         ]);
 
@@ -50,12 +50,12 @@ class Login extends Component
                     return redirect()->intended(route('dashboard'));
         }else {
                 // Handle failed login
-                $this->addError('email', 'Invalid credentials provided.');
+                $this->addError('username', 'Invalid credentials provided.');
         }
 
        } catch (\Throwable $th) {
                 // Handle failed login
-                $this->addError('email', 'Unable to connect to server.');
+                $this->addError('username', 'Unable to connect to server.');
         }
 
 
