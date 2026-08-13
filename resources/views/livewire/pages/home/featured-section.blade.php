@@ -67,9 +67,9 @@
 
                 <!-- Action Link -->
                 <a href="{{ route('single-product', ['id' => $product['ID'] ?? null]) }}">
-                    <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer w-full">
+                  <button class="bg-black hover:bg-gray-800 text-white border-none py-2 px-5 rounded font-semibold text-sm transition-all duration-300 mt-2.5 md:mt-0 md:opacity-0 md:translate-y-[20px] md:group-hover:opacity-100 md:group-hover:translate-y-0 cursor-pointer">
                     Buy Now
-                    </button>
+                  </button>
                 </a>
 
                 </div>
