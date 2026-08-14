@@ -56,7 +56,7 @@ class Shop extends Component
     }
 
     /**
-     * Search products strictly by Selected Category
+     * Fetch products strictly by Selected Category ID
      */
     public function searchByCategory()
     {
@@ -74,15 +74,19 @@ class Shop extends Component
             $baseUrl = config('services.ecommerce.url');
             $apiKey  = config('services.ecommerce.api');
 
-            Log::info("Searching products by category: '{$this->category}'");
+            Log::info("Fetching products for Category ID: '{$this->category}'");
+
 
             $response = Http::withHeaders([
                 'X-Api-Key'    => $apiKey,
                 'Content-Type' => 'application/json',
                 'Accept'       => 'application/json',
             ])->get("{$baseUrl}/search", [
-                'category' => $this->category,
+                "category"   => $this->category
             ]);
+
+            Log::info($response->json());
+
 
             if ($response->successful() && ($response->json('Success') || $response->json('success'))) {
                 $this->products = $response->json('Data') ?? $response->json('data') ?? [];
@@ -92,13 +96,14 @@ class Shop extends Component
                 $this->hasMore = false;
             }
         } catch (\Throwable $th) {
-            Log::error('Error searching products by category in Shop: ' . $th->getMessage());
+            Log::error('Error fetching products by category ID in Shop: ' . $th->getMessage());
             $this->networkError = true;
             $this->products = [];
         } finally {
             $this->isLoading = false;
         }
     }
+    
 
     /**
      * Search products strictly by Text Query
