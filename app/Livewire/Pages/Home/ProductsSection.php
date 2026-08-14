@@ -17,8 +17,8 @@ class ProductsSection extends Component
 
     public function mount()
     {
-       
         $this->fetchProducts(1);
+       
     }
 
     public function fetchProducts(int $pageNumber = 1)
@@ -44,7 +44,7 @@ class ProductsSection extends Component
                 'limit' => 20,
             ]);
 
-            // Log::info($response->json());
+            Log::info($response->json());
 
 
             if ($response->successful() && $response->json('Success')) {

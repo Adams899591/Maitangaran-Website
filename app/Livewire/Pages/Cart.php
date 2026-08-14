@@ -14,6 +14,7 @@ class Cart extends Component
     public float $subtotal = 0;
     public float $totalAmount = 0;
     public int $totalQuantity = 0;
+    // public string $imageDomain;
 
     public bool $isLoading = true;
     public bool $networkError = false;
@@ -30,6 +31,8 @@ class Cart extends Component
         } else {
             $this->fetchCart();
         }
+
+        // $this->imageDomain = config('services.ecommerce.image_domain');
     }
 
     public function sessionCartQuantity(){
@@ -57,7 +60,7 @@ class Cart extends Component
             $baseUrl = config('services.ecommerce.url');
             $response = Http::withHeaders($this->getHeaders())->get($baseUrl . '/cart');
             //             Log::info("00000000000000000000000000000000000000000000");
-            // Log::info($response->json());
+            Log::info($response->json());
             $data = $response->json();
 
             if ($response->successful() && ($data['Success'] ?? false)) {

@@ -522,8 +522,8 @@ class Checkout extends Component
         try {
             $response = Http::withHeaders([
                 'Authorization' => "Bearer {$token}",
+                'Content-Type'        => 'application/json',
                 'X-Api-Key'     => $apiKey,
-                'Accept'        => 'application/json',
             ])->get("{$baseUrl}/shipping/rates");
 
             $data = $response->json();

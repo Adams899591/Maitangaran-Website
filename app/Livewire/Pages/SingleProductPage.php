@@ -30,7 +30,10 @@ class SingleProductPage extends Component
         try {
             $baseUrl = config('services.ecommerce.url');
             $apiKey  = config('services.ecommerce.api');
-            $imageDomain = "https://swiftclouderp.com";
+            $imageDomain = config('services.ecommerce.image_domain');
+
+
+            // $imageDomain = "https://swiftclouderp.com";
 
             $response = Http::withHeaders([
                 'X-Api-Key'    => $apiKey,

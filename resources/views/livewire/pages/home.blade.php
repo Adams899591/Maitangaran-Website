@@ -2,19 +2,19 @@
 
  
     <!-- Hero Banner Section (Updated Premium Styling) -->
-    {{-- <livewire:pages.home.banner-section> --}}
+    <livewire:pages.home.banner-section>
 
 
     
     <!-- Discover Luxury, Style & Quality Section -->
-     {{-- <livewire:pages.home.discover-luxury-section> --}}
+     <livewire:pages.home.discover-luxury-section>
 
 
 
 
 
     <!-- Our Featured Section -->
-    {{-- <livewire:pages.home.featured-section> --}}
+    <livewire:pages.home.featured-section>
  
 
 

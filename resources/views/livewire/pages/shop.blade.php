@@ -84,19 +84,20 @@
             <input 
               type="range" 
               name="rangePrice" 
-              wire:model.defer="rangePrice"
+              wire:model="rangePrice"
+              wire:change="searchByPrice"
               class="w-full accent-black cursor-pointer" 
               id="priceRange" 
               min="2000" 
-              max="20000" 
-              value="9000" 
+              max="1000000" 
+              value="500000" 
               oninput="updatePriceDisplay()" 
             />
-            
+
             <div class="flex justify-between text-xs text-gray-500 mt-1">
               <span>&#8358;2,000</span>
-              <span id="priceValue" class="font-bold text-gray-800">&#8358;9,000</span>
-              <span>&#8358;20,000</span>
+              <span id="priceValue" class="font-bold text-gray-800">&#8358;500,000</span>
+              <span>&#8358;1,000,000</span>
             </div>
 
             <button 
@@ -269,9 +270,15 @@
 
   <script>
     function updatePriceDisplay() {
-      const slider = document.getElementById('priceRange');
-      const display = document.getElementById('priceValue');
-      display.textContent = `₦${parseInt(slider.value).toLocaleString()}`;
+        const slider = document.getElementById('priceRange');
+        const display = document.getElementById('priceValue');
+
+        if (slider && display) {
+          display.textContent = `₦${parseInt(slider.value).toLocaleString()}`;
+        }
     }
   </script>
 </div>
+
+
+

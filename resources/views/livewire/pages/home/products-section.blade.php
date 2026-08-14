@@ -1,5 +1,5 @@
-<div >
-{{-- wire:init="fetchProducts(1)" --}}
+<div>
+
   <section class="bg-[#f8f9fa] py-12" id="shop">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       
@@ -110,7 +110,6 @@
         </div>
     </section>
   @endif
-
 
 </div>
 
