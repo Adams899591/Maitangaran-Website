@@ -83,6 +83,8 @@ class About extends Component
 
 
 
+
+
     public function about()
     {
         $this->isLoading = true;
