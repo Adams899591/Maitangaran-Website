@@ -6,9 +6,11 @@ use App\Livewire\Pages\Cart;
 use App\Livewire\Pages\CartSuccess;
 use App\Livewire\Pages\Checkout;
 use App\Livewire\Pages\Contact;
+use App\Livewire\Pages\DeliveryMethod;
 use App\Livewire\Pages\Home;
 use App\Livewire\Pages\Login;
 use App\Livewire\Pages\Register;
+use App\Livewire\Pages\ShippingCourier;
 use App\Livewire\Pages\ShippingDetails;
 use App\Livewire\Pages\Shop;
 use App\Livewire\Pages\SingleProductPage;
@@ -31,9 +33,11 @@ Route::prefix("page")->group(function(){
     Route::get('/about', About::class)->name("about");
     Route::get('/cart', Cart::class)->name("cart");
     Route::get('/shipping-details', ShippingDetails::class)->name("shipping-details");
-    Route::get('/checkout', Checkout::class)->name("checkout");
+    // Route::get('/checkout', Checkout::class)->name("checkout");
+    Route::get('/shipping-courier', ShippingCourier::class)->name("shipping-courier");
     Route::get('/cart-success', CartSuccess::class)->name("cart-success");
     Route::get('/single-product', SingleProductPage::class)->name("single-product");
+    Route::get('/delivery-method', DeliveryMethod::class)->name("delivery-method");
 });
 
 

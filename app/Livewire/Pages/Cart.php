@@ -14,7 +14,7 @@ class Cart extends Component
     public float $subtotal = 0;
     public float $totalAmount = 0;
     public int $totalQuantity = 0;
-    // public string $imageDomain;
+    public string $imageDomain;
 
     public bool $isLoading = true;
     public bool $networkError = false;
@@ -32,7 +32,7 @@ class Cart extends Component
             $this->fetchCart();
         }
 
-        // $this->imageDomain = config('services.ecommerce.image_domain');
+        $this->imageDomain = config('services.ecommerce.image_domain');
     }
 
     public function sessionCartQuantity(){
@@ -41,8 +41,7 @@ class Cart extends Component
         ]);
     }
 
-    private function getHeaders(): array
-    {
+    private function getHeaders(): array{
         return [
             'Authorization' => 'Bearer ' . session('api_token'),
             'X-Api-Key'     => config('services.ecommerce.api'),
@@ -51,8 +50,7 @@ class Cart extends Component
         ];
     }
 
-    public function fetchCart()
-    {
+    public function fetchCart(){
         $this->isLoading = true;
         $this->networkError = false;
 
@@ -90,8 +88,7 @@ class Cart extends Component
         }
     }
 
-    public function addToCart($productId, $variantId = null, $quantity = 1)
-    {
+    public function addToCart($productId, $variantId = null, $quantity = 1){
         try {
             $baseUrl = config('services.ecommerce.url');
             $response = Http::withHeaders($this->getHeaders())->post($baseUrl . '/cart/add', [
@@ -115,8 +112,7 @@ class Cart extends Component
         $this->fetchCart();
     }
 
-    public function updateQuantity($itemId)
-    {
+    public function updateQuantity($itemId){
         $targetedItem = collect($this->cartItems)->firstWhere('ID', $itemId);
         if (!$targetedItem) return;
 
@@ -141,8 +137,7 @@ class Cart extends Component
         }
     }
 
-    public function removeItem($itemId)
-    {
+    public function removeItem($itemId){
         $targetedItem = collect($this->cartItems)->firstWhere('ID', $itemId);
         if (!$targetedItem) return;
 
@@ -161,8 +156,7 @@ class Cart extends Component
         }
     }
 
-    public function clearCart()
-    {
+    public function clearCart(){
         try {
             $baseUrl = config('services.ecommerce.url');
             $response = Http::withHeaders($this->getHeaders())->delete($baseUrl . '/cart/clear');

@@ -7,22 +7,6 @@
       <p class="text-sm text-gray-500 mt-1">Verify or update your saved delivery address to proceed with shipping options</p>
     </div>
 
-    <!-- Notification Banners -->
-    @if (session()->has('message'))
-      <div class="mb-6 p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-sm font-medium flex items-center gap-2">
-        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-        {{ session('message') }}
-      </div>
-    @endif
-
-    @if (session()->has('error'))
-      <div class="mb-6 p-4 rounded-xl border border-red-200 bg-red-50 text-red-800 text-sm font-medium">
-        {{ session('error') }}
-      </div>
-    @endif
-
     <div class="bg-white rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.08)] border border-gray-100 p-6 md:p-8">
       
       <!-- Form Header -->
@@ -109,11 +93,42 @@
               placeholder="e.g. 42 Marina Road, Lagos"
               class="w-full px-4 py-3 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
               required
+              maxlength="100"
+              {{-- min="10" --}}
             />
             @error('address') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
           </div>
 
+          @error('address') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
+</div>
+
+
+
+
+
+
+
+
+
+
         </div>
+
+        
+        <!-- Notification Banners -->
+        @if (session()->has('message'))
+          <div class="mb-6 p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-sm font-medium flex items-center gap-2">
+            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            {{ session('message') }}
+          </div>
+        @endif
+
+        @if (session()->has('error'))
+          <div class="mb-6 p-4 rounded-xl border border-red-200 bg-red-50 text-red-800 text-sm font-medium">
+            {{ session('error') }}
+          </div>
+        @endif
 
         <!-- Submit & Navigation Button -->
         <div class="mt-8 pt-6 border-t border-gray-100 flex items-center justify-end">

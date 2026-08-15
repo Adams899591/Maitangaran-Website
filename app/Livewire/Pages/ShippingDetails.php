@@ -48,12 +48,15 @@ class ShippingDetails extends Component
 
         try {
             $response = Http::withHeaders([
-                'Authorization' => "Bearer {$token}",
+                'Authorization' => 'Bearer ' . $token,
                 'X-Api-Key'     => $apiKey,
+                'Content-Type'  => 'application/json',
                 'Accept'        => 'application/json',
             ])->get("{$baseUrl}/customer/shipping");
 
             $data = $response->json();
+
+            // Log::info($data);
 
             if ($response->successful() && ($data['success'] ?? $data['Success'] ?? false)) {
                 $shipping = $data['data'] ?? $data['Data'] ?? [];
@@ -63,6 +66,9 @@ class ShippingDetails extends Component
                 $this->phone    = $shipping['phoneNo'] ?? $shipping['PhoneNo'] ?? '';
                 $this->state    = $shipping['stateOfResidence'] ?? $shipping['StateOfResidence'] ?? '';
                 $this->address  = $shipping['address'] ?? $shipping['Address'] ?? '';
+
+
+                // return redirect()->route('checkout');
             }
         } catch (\Throwable $th) {
             Log::error('Error fetching shipping details: ' . $th->getMessage());
@@ -100,11 +106,13 @@ class ShippingDetails extends Component
 
             $data = $response->json();
 
+            Log::info($data);
+
             if ($response->successful() && ($data['success'] ?? $data['Success'] ?? false)) {
-                session()->flash('message', 'Shipping details updated successfully!');
+                // session()->flash('message', 'Shipping details updated successfully!');
 
                 // Navigate to the next step (Shipping Rates / Final Checkout page)
-                return redirect()->route('checkout');
+                $this->redirectRoute('delivery-method', navigate: true);
             } else {
                 $msg = $data['message'] ?? $data['Message'] ?? 'Failed to update shipping details.';
                 $this->addError('address', $msg);

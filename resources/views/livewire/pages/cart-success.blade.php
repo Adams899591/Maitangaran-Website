@@ -1,4 +1,4 @@
-<div class="max-w-3xl mx-auto px-4 py-16 md:py-24 text-center">
+<div class="max-w-3xl mx-auto px-4 py-4 md:py-24 text-center">
   <div class="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 p-8 md:p-12">
     
     <!-- Animated Success Check Icon -->
@@ -13,13 +13,13 @@
     <!-- Heading & Main Description -->
     <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">Order Placed Successfully!</h2>
     <p class="text-sm md:text-base text-gray-600 mt-2 max-w-lg mx-auto leading-relaxed">
-      Thank you for your purchase. We will start processing your package right away. Visit your dashboard to track your order, view your delivery status, and complete any outstanding balances.
+      Your order has been saved, but processing is on hold until payment is received. Please complete your payment to start your package processing and delivery. You can view your status and make payment from your dashboard.
     </p>
 
     <!-- Call to Action Buttons -->
     <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
       <a 
-        href="/shop" 
+        href="{{route("shop")}}" 
         wire:navigate
         class="w-full sm:w-auto px-6 py-3 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-semibold text-sm rounded-lg transition-colors text-center"
       >
@@ -27,7 +27,7 @@
       </a>
 
       <a 
-        href="/dashboard" 
+        href="{{route("order-ladger")}}" 
         wire:navigate
         class="w-full sm:w-auto px-8 py-3.5 bg-black hover:bg-gray-800 text-white font-bold text-sm rounded-lg transition-colors text-center shadow-md"
       >

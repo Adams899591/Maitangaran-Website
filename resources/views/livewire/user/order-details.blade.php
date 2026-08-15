@@ -105,6 +105,68 @@
       @endif
     </div>
 
+    <!-- 2.5. Shipment Details Card -->
+    <div class="bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 p-6 space-y-4">
+      
+      <!-- Header & Status -->
+      <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+          </svg>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500">Delivery Details</h3>
+        </div>
+
+        <!-- Status Badge -->
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border uppercase tracking-wider bg-amber-50 text-amber-700 border-amber-200">
+          Awaiting Payment
+        </span>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-1">
+        
+        <!-- Courier Service -->
+        <div class="flex items-center gap-3">
+          <img 
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" 
+            alt="Courier Avatar" 
+            class="w-11 h-11 object-cover rounded-lg border border-gray-100 bg-gray-50 p-0.5 shadow-sm"
+          />
+          <div>
+            <p class="text-xs text-gray-400 font-medium">Courier Service</p>
+            <p class="text-sm font-semibold text-gray-800 capitalize">
+              Fez Delivery
+            </p>
+          </div>
+        </div>
+
+        <!-- Shipping Fee -->
+        <div>
+          <p class="text-xs text-gray-400 font-medium">Shipping Fee</p>
+          <p class="text-sm font-bold text-gray-900">&#8358;7,791.25</p>
+        </div>
+
+        <!-- Courier Name -->
+        <div>
+          <p class="text-xs text-gray-400 font-medium">Courier Name</p>
+          <p class="text-sm font-semibold text-gray-800">
+            Joshua
+          </p>
+        </div>
+
+        <!-- Order Date -->
+        <div>
+          <p class="text-xs text-gray-400 font-medium">Order Date</p>
+          <p class="text-sm font-semibold text-gray-800">
+            Aug 15, 2026 • 09:37 PM
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+
     <!-- 2. Delivery Address Section -->
     <div class="bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-gray-100 p-6">
       <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Delivery Address</h3>

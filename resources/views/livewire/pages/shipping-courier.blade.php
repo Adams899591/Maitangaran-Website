@@ -1,4 +1,4 @@
-{{-- 
+
 <div>
   <div class="max-w-4xl mx-auto px-4 py-8 md:py-12">
   
@@ -149,4 +149,4 @@
 
     </div>
   </div>
-</div> --}}
+</div>

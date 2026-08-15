@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class OrderDetails extends Component
 {
@@ -20,10 +21,39 @@ class OrderDetails extends Component
 
         if ($this->invoiceId) {
             $this->fetchOrderDetails();
+            $this->fetchStatusNote();
         } else {
             $this->isLoading = false;
         }
     }
+
+
+    public function fetchStatusNote(){
+
+            $token = session('api_token');
+            $baseUrl = config('services.ecommerce.url');
+            $apiKey = config('services.ecommerce.api');
+
+          try {
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+                'X-Api-Key'     => $apiKey,
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json',
+            ])->get("{$baseUrl}/orders/{$this->invoiceId}/status-note");
+
+            $data = $response->json();
+            Log::info($data);
+
+          } catch (\Throwable $th) {
+            //throw $th;
+          }
+
+    }
+
+
+
 
     public function fetchOrderDetails(): void
     {
@@ -46,6 +76,7 @@ class OrderDetails extends Component
             ])->get("{$baseUrl}/orders/{$this->invoiceId}");
 
             $data = $response->json();
+            Log::info($data);
 
             if ($response->successful() && ($data['Success'] ?? false) === true) {
                 $this->orderData = $data['Data'] ?? null;
@@ -146,7 +177,7 @@ class OrderDetails extends Component
             if ($response->successful() && ($data['Success'] ?? false) === true) {
                 $this->orderData['Status'] = 0;
                 session()->flash('success', $data['Message'] ?? 'Order has been cancelled.');
-                return redirect()->route('orders-details');
+                return redirect()->route('order-ladger');
             } else {
                 session()->flash('error', $data['Message'] ?? 'Failed to cancel order.');
             }
