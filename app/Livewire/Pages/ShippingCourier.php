@@ -48,7 +48,7 @@ class ShippingCourier extends Component
 
             $data = $response->json();
 
-            // Log::info($data);
+            Log::info($data);
 
             $isSuccess = $data['Success'] ?? $data['success'] ?? false;
 
@@ -120,6 +120,9 @@ class ShippingCourier extends Component
             'shippingServiceCode'  => $selectedCourier['serviceCode'],
             'shippingCourierId'    => (string) $selectedCourier['courierId'],
             'shippingFee'          => (float) $selectedCourier['total'],
+            "shippingCourierName"  => $selectedCourier['courierName'],
+            "shippingCourierImage" => $selectedCourier['courierImage'],
+            "shippingDeliveryEta"  => $selectedCourier['deliveryEta'],
         ];
 
         Log::info($payload);

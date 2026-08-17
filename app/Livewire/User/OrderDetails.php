@@ -13,6 +13,7 @@ class OrderDetails extends Component
     public bool $isLoading = true;
     public bool $isCancelling = false;
     public bool $isInitializingPayment = false;
+    public ?array $shipmentData = null; // Add this property at the top with other public properties
 
     public function mount(?string $InvoiceID = null): void
     {
@@ -28,14 +29,13 @@ class OrderDetails extends Component
     }
 
 
-    public function fetchStatusNote(){
+    public function fetchStatusNote(): void
+    {
+        $token = session('api_token');
+        $baseUrl = config('services.ecommerce.url');
+        $apiKey = config('services.ecommerce.api');
 
-            $token = session('api_token');
-            $baseUrl = config('services.ecommerce.url');
-            $apiKey = config('services.ecommerce.api');
-
-          try {
-
+        try {
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
                 'X-Api-Key'     => $apiKey,
@@ -44,15 +44,17 @@ class OrderDetails extends Component
             ])->get("{$baseUrl}/orders/{$this->invoiceId}/status-note");
 
             $data = $response->json();
-            Log::info($data);
 
-          } catch (\Throwable $th) {
-            //throw $th;
-          }
-
+            if ($response->successful() && ($data['Success'] ?? false) === true) {
+                // Parse the JSON string contained inside 'Data'
+                $this->shipmentData = is_string($data['Data'] ?? null) 
+                    ? json_decode($data['Data'], true) 
+                    : ($data['Data'] ?? null);
+            }
+        } catch (\Throwable $th) {
+            Log::error('Fetch Status Note Error: ' . $th->getMessage());
+        }
     }
-
-
 
 
     public function fetchOrderDetails(): void
