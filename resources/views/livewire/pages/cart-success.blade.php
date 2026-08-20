@@ -1,4 +1,4 @@
-<div class="max-w-3xl mx-auto px-4 py-4 md:py-24 text-center">
+<div class="max-w-3xl mx-auto px-4 py-4 md:py-8 text-center">
   <div class="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 p-8 md:p-12">
     
     <!-- Animated Success Check Icon -->

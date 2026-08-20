@@ -1,4 +1,4 @@
-<div>
+<div> 
 
        <!-- Hero Banner Section (Updated Premium Styling) -->
     <header class="bg-gray-100/80 border-b border-gray-200 overflow-hidden">

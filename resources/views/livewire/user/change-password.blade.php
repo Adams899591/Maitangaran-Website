@@ -1,4 +1,4 @@
-<div class="max-w-xl mx-auto px-4 py-8 md:py-12">
+<div class="max-w-xl mx-auto px-4 py-4 md:py-6">
 
   <div class="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 p-6 md:p-10">
       

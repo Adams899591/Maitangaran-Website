@@ -47,41 +47,24 @@
               </button>
             </div>
 
-            {{-- <div class="max-h-48 overflow-y-auto pr-2 space-y-2.5 custom-scrollbar mb-4 border-b border-gray-100 pb-3">
-              @forelse($categories as $cat)
-                <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer hover:text-black">
-                  <input 
-                    type="radio" 
-                    value="{{ $cat['Category'] ?? '' }}" 
-                    name="category" 
-                    wire:model="category" 
-                    wire:change="searchByCategory"
-                    class="accent-black" 
-                  /> 
-                  <span>{{ $cat['Category'] ?? 'Unnamed Category' }}</span>
-                </label>
-              @empty
-                <p class="text-xs text-gray-400">No categories found.</p>
-              @endforelse
-           </div> --}}
-
-<div class="max-h-48 overflow-y-auto pr-2 space-y-2.5 custom-scrollbar mb-4 border-b border-gray-100 pb-3">
-  @forelse($categories as $cat)
-    <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer hover:text-black">
-      <input 
-        type="radio" 
-        value="{{ $cat['ID'] ?? '' }}" 
-        name="category" 
-        wire:model="category" 
-        wire:change="searchByCategory"
-        class="accent-black" 
-      /> 
-      <span>{{ $cat['Category'] ?? 'Unnamed Category' }}</span>
-    </label>
-  @empty
-    <p class="text-xs text-gray-400">No categories found.</p>
-  @endforelse
-</div>
+            {{-- Cartegory Section --}}
+              <div class="max-h-48 overflow-y-auto pr-2 space-y-2.5 custom-scrollbar mb-4 border-b border-gray-100 pb-3">
+                @forelse($categories as $cat)
+                  <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer hover:text-black">
+                    <input 
+                      type="radio" 
+                      value="{{ $cat['ID'] ?? '' }}" 
+                      name="category" 
+                      wire:model="category" 
+                      wire:change="searchByCategory"
+                      class="accent-black" 
+                    /> 
+                    <span>{{ $cat['Category'] ?? 'Unnamed Category' }}</span>
+                  </label>
+                @empty
+                  <p class="text-xs text-gray-400">No categories found.</p>
+                @endforelse
+              </div>
 
 
             <h6 class="font-bold text-gray-800 text-sm mt-3 mb-2">Price</h6>
@@ -158,7 +141,7 @@
                     <div class="relative overflow-hidden aspect-square rounded-md">
                       @if(!empty($product['SmallImage']))
                         <img 
-                          src="{{ $product['SmallImage'] }}" 
+                          src="{{$this->imageDomain . $product['SmallImage'] }}" 
                           alt="{{ $product['ProductName'] ?? 'Product' }}" 
                           class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
                         />

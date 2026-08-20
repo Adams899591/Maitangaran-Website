@@ -16,11 +16,56 @@ class SingleProductPage extends Component
     public $selectedImageId = null;
     public $selectedVariantId = null;
 
+    // 1. Add these public properties at the top of your class
+    public $reviewStats = null;
+    public $reviews = [];
+
     public function mount()
     {
         $this->productId = request()->query('id');
         $this->fetchSingleProduct();
+
+        $this->fetchProductReviewsStats();
+        $this->fetchProductReviews();
     }
+
+
+    // 2. fetchProductReviewsStats method
+    public function fetchProductReviewsStats()
+    {
+        $baseUrl = config('services.ecommerce.url');
+        $apiKey  = config('services.ecommerce.api');
+
+        $response = Http::withHeaders([
+            'X-Api-Key'    => $apiKey,
+            'Content-Type' => 'application/json',
+            'Accept'       => 'application/json',
+        ])->get("{$baseUrl}/products/{$this->productId}/reviews/stats");
+
+        Log::info($response->json());
+        if ($response->successful() && $response->json('Success')) {
+            $this->reviewStats = $response->json('Data');
+        }
+    }
+
+    // 3. fetchProductReviews method
+    public function fetchProductReviews()
+    {
+        $baseUrl = config('services.ecommerce.url');
+        $apiKey  = config('services.ecommerce.api');
+
+        $response = Http::withHeaders([
+            'X-Api-Key'    => $apiKey,
+            'Content-Type' => 'application/json',
+            'Accept'       => 'application/json',
+        ])->get("{$baseUrl}/products/{$this->productId}/reviews");
+        Log::info($response->json());
+
+        if ($response->successful() && $response->json('Success')) {
+            $this->reviews = $response->json('Data.Items') ?? [];
+        }
+    }
+
 
     public function fetchSingleProduct()
     {
@@ -40,6 +85,8 @@ class SingleProductPage extends Component
                 'Content-Type' => 'application/json',
                 'Accept'       => 'application/json',
             ])->get("{$baseUrl}/products/{$this->productId}");
+
+            Log::info($response->json());
 
             if ($response->successful() && $response->json('Success')) {
                 $rawProduct = $response->json('Data');
@@ -187,7 +234,6 @@ class SingleProductPage extends Component
         if (!session()->has('user')) {
             return session()->flash('error', 'Please log in to access your cart.');
         }
-
 
         return redirect()->route('cart', [
             'id'         => $id,

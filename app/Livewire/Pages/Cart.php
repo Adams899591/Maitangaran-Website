@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class Cart extends Component
 {
-    public array $cartItems = [];
+    public array $cartItems = []; 
     public array $quantities = [];
     public float $subtotal = 0;
     public float $totalAmount = 0;

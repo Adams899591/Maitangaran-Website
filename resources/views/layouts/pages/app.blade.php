@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{ $title ?? 'MAITANGARAN - Premium Fabrics Collection' }}</title> 
+  <link rel="icon" type="image/png" href="{{asset("images/logo.png")}}" style="border-radius: 50%">
 
   <!-- FontAwesome Icon -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -161,19 +162,19 @@
           </p>
           <!-- Social Icons (Monochrome) -->
           <div class="flex items-center space-x-4 pt-2">
-            <a href="tel:+2349018827571" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Viber">
+            <a href="tel:#" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Viber">
               <i class="fa-brands fa-viber text-2xl"></i>
             </a>
-            <a href="http://www.facebook.com/Usman Adams" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Facebook">
+            <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Facebook">
               <i class="fa-brands fa-facebook text-2xl"></i>
             </a>
-            <a href="https://www.linkedin.com/in/usman-adams-7a5900352" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="LinkedIn">
+            <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="LinkedIn">
               <i class="fa-brands fa-linkedin text-2xl"></i>
             </a>
-            <a href="https://wa.me/2349018827571" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="WhatsApp">
+            <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="WhatsApp">
               <i class="fa-brands fa-whatsapp text-2xl"></i>
             </a>
-            <a href="https://github.com/Adams899591" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="GitHub">
+            <a href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200" aria-label="GitHub">
               <i class="fa-brands fa-github text-2xl"></i>
             </a>
           </div>

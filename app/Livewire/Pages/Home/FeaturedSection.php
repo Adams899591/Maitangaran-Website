@@ -1,17 +1,4 @@
 <?php
-
-// namespace App\Livewire\Pages\Home;
-
-// use Livewire\Component;
-
-// class FeaturedSection extends Component
-// {
-//     public function render()
-//     {
-//         return view('livewire.pages.home.featured-section');
-//     }
-// }
-
 namespace App\Livewire\Pages\Home;
 
 use Livewire\Component;
@@ -23,10 +10,12 @@ class FeaturedSection extends Component
     public array $products = [];
     public bool $isLoading = true;
     public bool $networkError = false;
+    public string $imageDomain;
 
     public function mount()
     {
         $this->fetchFeaturedProducts();
+        $this->imageDomain = config('services.ecommerce.image_domain');
     }
 
     public function fetchFeaturedProducts()

@@ -16,6 +16,7 @@ class Shop extends Component
     public bool $isLoading = true; // Set to true initially for skeleton display
     public bool $isMoreLoading = false;
     public bool $networkError = false;
+    public string $imageDomain;
 
     // Local Pagination state (4 products per view page)
     public int $currentPage = 1;
@@ -30,6 +31,7 @@ class Shop extends Component
     {  
         // DO NOT call fetchProducts(1) here. 
         // Wire-init will trigger it asynchronously once the skeleton is rendered on screen.
+         $this->imageDomain = config('services.ecommerce.image_domain');
     }
 
     /**

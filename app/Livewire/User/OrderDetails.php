@@ -12,19 +12,53 @@ class OrderDetails extends Component
     public ?array $orderData = null;
     public bool $isLoading = true;
     public bool $isCancelling = false;
-    public bool $isInitializingPayment = false;
     public ?array $shipmentData = null; // Add this property at the top with other public properties
+
 
     public function mount(?string $InvoiceID = null): void
     {
-        // Get parameter from route or request
+        // Get parameters from route or query string
         $this->invoiceId = $InvoiceID ?? request()->query('InvoiceID', '');
+        $reference = request()->query('reference');
 
+        // 1. If Paystack redirected back with a reference parameter, verify payment
+        if ($reference) {
+            $this->verifyPayment($reference);
+        }
+
+        // 2. Fetch latest order and status details
         if ($this->invoiceId) {
             $this->fetchOrderDetails();
             $this->fetchStatusNote();
         } else {
             $this->isLoading = false;
+        }
+    }
+
+    protected function verifyPayment(string $reference): void
+    {
+
+        $baseUrl = config('services.ecommerce.url');
+
+        try {
+            // According to docs: GET /payment/verify is PUBLIC and exempt from X-Api-Key
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+            ])->get("{$baseUrl}/payment/verify", [
+                'reference' => $reference,
+            ]);
+
+            $data = $response->json();
+
+            Log::info($data);
+
+            if ($response->successful()) {
+                session()->flash('success', 'Payment verified successfully!');
+            } else {
+                session()->flash('error', $data['Message'] ?? $data['message'] ?? 'Payment verification failed.');
+            }
+        } catch (\Throwable $th) {
+            Log::error('Payment Verification Error: ' . $th->getMessage());
         }
     }
 
@@ -96,15 +130,13 @@ class OrderDetails extends Component
     {
         if (!$this->invoiceId || !$this->orderData) return;
 
-        $token = session('api_token');
+        $token   = session('api_token');
         $baseUrl = config('services.ecommerce.url');
-        $apiKey = config('services.ecommerce.api');
-
-        $this->isInitializingPayment = true;
+        $apiKey  = config('services.ecommerce.api');
 
         try {
-            // Callback URL back to order details or ledger
-            // $redirectUrl = route('order.details', ['InvoiceID' => $this->invoiceId]);
+            // Success & Failure redirect URL back to this Livewire route
+            $redirectUrl = route('orders-details', ['InvoiceID' => $this->invoiceId]);
 
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
@@ -112,30 +144,36 @@ class OrderDetails extends Component
                 'Content-Type'  => 'application/json',
                 'Accept'        => 'application/json',
             ])->post("{$baseUrl}/payment/initialize", [
-                'invoiceID'  => $this->invoiceId,
-                // 'successUrl' => $redirectUrl,
-                // 'failureUrl' => $redirectUrl,
+                'invoiceID'  => $this->invoiceId, 
+                'successUrl' => $redirectUrl,
+                'failureUrl' => $redirectUrl,
             ]);
 
             $data = $response->json();
 
-            if ($response->successful() && ($data['Success'] ?? false) === true) {
-                $authUrl = $data['Data']['AuthorizationUrl'] ?? null;
+            Log::info($data);
+
+            if ($response->successful() && ($data['Success'] ?? $data['success'] ?? false) === true) {
+                $authUrl = $data['Data']['AuthorizationUrl'] 
+                    ?? $data['Data']['authorizationUrl'] 
+                    ?? $data['authorizationUrl'] 
+                    ?? null;
 
                 if ($authUrl) {
+                    // Redirect user to Paystack payment gateway
                     return redirect()->away($authUrl);
                 }
 
-                session()->flash('error', 'Authorization URL was not found.');
+                session()->flash('error', 'Authorization URL not found.');
             } else {
-                session()->flash('error', $data['Message'] ?? 'Could not initialize payment.');
+                session()->flash('error', $data['Message'] ?? $data['message'] ?? 'Could not initialize payment.');
             }
         } catch (\Throwable $th) {
+            Log::error('Pay Now Error: ' . $th->getMessage());
             session()->flash('error', 'Failed to start checkout process.');
-        } finally {
-            $this->isInitializingPayment = false;
         }
     }
+
 
     public function cancelOrder()
     {

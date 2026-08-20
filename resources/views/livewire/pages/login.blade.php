@@ -1,4 +1,4 @@
-<div class="max-w-md mx-auto px-4 py-16 md:py-24" x-data="{ username: '', password: '' }">
+<div class="max-w-md mx-auto px-4 py-8 md:py-12" x-data="{ username: '', password: '' }">
   <div class="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 p-8 md:p-10">
     
     <!-- Header Section -->
@@ -34,7 +34,7 @@
       <div>
         <div class="flex items-center justify-between mb-2">
           <label for="password" class="block text-xs font-bold uppercase tracking-wider text-gray-700">Password</label>
-          <a href="/forgot-password" wire:navigate class="text-xs font-medium text-gray-600 hover:text-black transition-colors">Forgot password?</a>
+          <a href="{{route("forgot-password")}}" wire:navigate class="text-xs font-medium text-gray-600 hover:text-black transition-colors">Forgot password?</a>
         </div>
         <input 
           type="password" 

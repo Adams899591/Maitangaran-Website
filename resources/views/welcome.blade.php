@@ -5,51 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MAITANGARAN - Premium Fabrics Collection</title>
+    <link rel="icon" type="image/png" href="{{asset("images/logo.png")}}" style="border-radius: 50%">
     @vite(["resources/css/app.css","resources/js/app.js"])
 </head>
-<body class="bg-black m-0 p-0 overflow-hidden font-sans">
+<body class="bg-gray-100/80 m-0 p-0 overflow-hidden font-sans">
 
-    <!-- Background Image with Dark Overlay Gradients -->
-    <div class="relative w-screen h-screen bg-cover bg-center flex flex-col justify-between px-6 pt-20 pb-16"
-         style="background-image: url('https://images.unsplash.com/photo-1513094735237-8f2714d57c13?q=80&w=1470&auto=format&fit=crop');">
+    <!-- Container with Soft Light Background Matching Hero Banner -->
+    <div class="relative w-screen h-screen bg-gray-100/80 border-b border-gray-200 flex flex-col justify-between px-6 pt-20 pb-16">
         
-        <!-- Gradient Overlay matching the React Native LinearGradient -->
-        <div class="absolute inset-0 bg-gradient-to-b from-[rgba(0,0,0,0.75)] via-[rgba(0,0,0,0.55)] to-[rgba(0,0,0,0.90)] pointer-events-none"></div>
+        <!-- Subtle Overlay Gradient for Depth -->
+        <div class="absolute inset-0 bg-gradient-to-b from-gray-100/60 via-gray-100/80 to-gray-200/90 pointer-events-none"></div>
 
         <!-- Content Layer -->
         <div class="relative z-10 flex flex-col justify-between h-full">
             
-            <!-- Header (Fades and Scales in via Tailwind/CSS transitions) -->
+            <!-- Header with Rounded Logo -->
             <div id="header-view" class="flex flex-col items-center opacity-0 scale-90 transition-all duration-1000 ease-out">
-                <h1 class="text-white text-3xl md:text-4xl font-black tracking-[2px]">
+                <!-- Circular Rounded Website Logo with Subtle Border & Shadow -->
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-md border border-gray-300/80 bg-white flex items-center justify-center mb-4">
+                    <img src="{{ asset('images/logo.png') }}" alt="MAITANGARAN Logo" class="w-full h-full object-cover">
+                </div>
+                
+                <h1 class="text-gray-900 text-3xl md:text-4xl font-extrabold tracking-[2px]">
                     MAITANGARAN
                 </h1>
-                <p class="text-gray-300 mt-2.5 tracking-[3px] text-xs uppercase">
+                <p class="text-gray-600 mt-2 tracking-[3px] text-xs uppercase font-medium">
                     Premium Fabrics Collection
                 </p>
             </div>
 
             <!-- Countdown Display -->
             <div id="counter-view" class="flex flex-col items-center opacity-0 transition-opacity duration-1000">
-                <span id="count-number" class="text-white text-8xl md:text-9xl font-black">
+                <span id="count-number" class="text-gray-900 text-8xl md:text-9xl font-black">
                     100
                 </span>
-                <span class="text-gray-300 tracking-[5px] -mt-2">
+                <span class="text-gray-500 tracking-[5px] -mt-2 font-bold">
                     %
                 </span>
-                <p class="text-white mt-6 text-sm md:text-base tracking-[2px]">
+                <p class="text-gray-700 mt-6 text-sm md:text-base tracking-[2px] font-semibold">
                     Loading Collection...
                 </p>
             </div>
 
+            
             <!-- Progress Bar & Footer -->
             <div>
-                <div class="h-1 bg-white/25 rounded-full overflow-hidden w-full">
-                    <!-- Progress Bar Inner Fill -->
-                    <div id="progress-bar" class="h-full bg-white w-0"></div>
+                <!-- Progress Bar Track (Light Gray Background for Contrast) -->
+                <div class="h-2 bg-gray-300/80 rounded-full overflow-hidden w-full shadow-inner">
+                    <!-- Progress Bar Inner Fill (Pure Black Fill) -->
+                    <div id="progress-bar" class="h-full bg-black w-0 rounded-full transition-all"></div>
                 </div>
 
-                <p class="text-gray-400 text-center mt-4 tracking-[3px] text-[11px]">
+                <p class="text-gray-500 text-center mt-4 tracking-[3px] text-[11px] uppercase font-medium">
                     Luxury &bull; Elegance &bull; Quality
                 </p>
             </div>
@@ -90,7 +97,7 @@
 
                 if (count <= 0) {
                     clearInterval(timer);
-                    // Redirect to your target web route once finished (equivalent to router.replace)
+                    // Redirect to your target web route once finished
                     window.location.href = "/page/home"; 
                 }
             }, intervalTime);
@@ -98,5 +105,3 @@
     </script>
 </body>
 </html>
-
-

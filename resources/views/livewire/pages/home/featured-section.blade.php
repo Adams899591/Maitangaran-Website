@@ -40,7 +40,7 @@
                 <div class="relative overflow-hidden aspect-square">
                     @if(!empty($product['SmallImage']))
                     <img 
-                        src="{{ $product['SmallImage'] }}" 
+                        src="{{ $this->imageDomain . $product['SmallImage'] }}" 
                         alt="{{ $product['ProductName'] ?? 'Product' }}" 
                         class="w-full h-full object-cover transition-transform duration-300 scale-[1.05] md:scale-100 md:group-hover:scale-110"
                     />

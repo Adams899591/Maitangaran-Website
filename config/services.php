@@ -36,10 +36,10 @@ return [
     ],
     
     'ecommerce' => [
-        'url' => env('ECOMMERCE_API_URL', 'https://ecomapi.swift.ng'), // Replace with your actual endpoint root URL
-        // 'api' => env('ECOMMERCE_API_KEY', 'SK_live_10e7d379ad714bbdaf44afff'),
-        'api' => env('ECOMMERCE_API_KEY', 'SK_live_e5a57f63ebff4fdb822efc23'),
-        'image_domain' => env('ECOMMERCE_IMAGE_DOMAIN', 'https://swiftclouderp.com'),
+        'url' => env('ECOMMERCE_API_URL'), // Replace with your actual endpoint root URL
+        'api' => env('ECOMMERCE_API_KEY'),
+        // 'api' => env('ECOMMERCE_API_KEY', 'SK_live_e5a57f63ebff4fdb822efc23'),
+        'image_domain' => env('ECOMMERCE_IMAGE_DOMAIN'),
     ],
 
 

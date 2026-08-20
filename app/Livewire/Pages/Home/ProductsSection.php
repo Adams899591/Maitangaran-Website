@@ -14,10 +14,12 @@ class ProductsSection extends Component
     public bool $isLoading = false;
     public bool $isMoreLoading = false;
     public bool $networkError = false;
+    public string $imageDomain;
 
     public function mount()
     {
         $this->fetchProducts(1);
+        $this->imageDomain = config('services.ecommerce.image_domain');
        
     }
 
@@ -44,7 +46,7 @@ class ProductsSection extends Component
                 'limit' => 20,
             ]);
 
-            Log::info($response->json());
+            // Log::info($response->json());
 
 
             if ($response->successful() && $response->json('Success')) {
