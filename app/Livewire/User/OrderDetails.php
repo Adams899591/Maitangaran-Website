@@ -13,6 +13,7 @@ class OrderDetails extends Component
     public bool $isLoading = true;
     public bool $isCancelling = false;
     public ?array $shipmentData = null; // Add this property at the top with other public properties
+    public $imageDomain;
 
 
     public function mount(?string $InvoiceID = null): void
@@ -20,6 +21,9 @@ class OrderDetails extends Component
         // Get parameters from route or query string
         $this->invoiceId = $InvoiceID ?? request()->query('InvoiceID', '');
         $reference = request()->query('reference');
+
+        $this->imageDomain = config('services.ecommerce.image_domain');
+
 
         // 1. If Paystack redirected back with a reference parameter, verify payment
         if ($reference) {

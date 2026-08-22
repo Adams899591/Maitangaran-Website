@@ -60,23 +60,27 @@ class WriteReview extends Component
                 'comment'   => $this->comment ?? '',
             ]);
 
+
             $data = $response->json();
 
             Log::info($response);
-            if ($response->successful() && ($data['success'] ?? false) === true) {
-                $this->successMessage = $data['message'] ?? 'Review submitted successfully!';
+        
+            if ($response->successful() && ($data['Success'] ?? false) === true) {
+                $this->successMessage = $data['Message'] ?? 'Review submitted successfully!';
                 
                 // Redirect back to pending reviews list after 2 seconds
                 // $this->dispatch('review-submitted');
                 // return redirect()->route('my-review')->with('success', 'Review submitted successfully!');
             } else {
                 // Parse API business/validation error message
-                $this->errorMessage = $data['message'] ?? $data['Message'] ?? 'Failed to submit review. Please try again.';
+                $this->errorMessage = $data['Message'] ?? $data['Message'] ?? 'Failed to submit review. Please try again.';
             }
         } catch (\Throwable $th) {
             Log::error('Submit Review Error: ' . $th->getMessage());
             $this->errorMessage = 'An unexpected error occurred while submitting your review.';
-        } finally {
+        }
+        
+        finally {
             $this->isSubmitting = false;
         }
     }

@@ -22,6 +22,8 @@ use App\Livewire\User\Dashboard;
 use App\Livewire\User\MyReview;
 use App\Livewire\User\OrderDetails;
 use App\Livewire\User\OrderLadger;
+use App\Livewire\User\CompletedReview;
+use App\Livewire\User\PendingReview;
 use App\Livewire\User\WriteReview;
 use Illuminate\Support\Facades\Route;
 
@@ -54,7 +56,7 @@ Route::prefix("auth")->group(function(){
     Route::get('/forgot-password', ForgotPassword::class)->name("forgot-password");
     Route::get('/reset-password', ResetPassword::class)->name("reset-password");
 });
-
+ 
 
 Route::middleware(['api.session'])->prefix("user")->group(function(){
     Route::get('/dashboard', Dashboard::class)->name("dashboard");
@@ -63,6 +65,8 @@ Route::middleware(['api.session'])->prefix("user")->group(function(){
     Route::get('/profile', AccountProfile::class)->name("profile");
     Route::get('/my-review', MyReview::class)->name("my-review");
     Route::get('/write-review', WriteReview::class)->name("write-review");
+    Route::get('/completed-review', CompletedReview::class)->name("completed-review");
+    Route::get('/pending-review', PendingReview::class)->name("pending-review");
     Route::get('/change-password', ChangePassword::class)->name("change-password");
     
 });
