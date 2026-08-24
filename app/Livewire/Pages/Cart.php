@@ -6,6 +6,7 @@ use Livewire\Component;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cookie;
 
 class Cart extends Component
 {
@@ -19,8 +20,13 @@ class Cart extends Component
     public bool $isLoading = true;
     public bool $networkError = false;
 
+    public string $guestSessionId = '';
+
     public function mount(Request $request)
     {
+        // Read existing cookie into component property
+        $this->guestSessionId = $request->cookie('guest_session_id', '');
+
         // $variantId = $request->query('id');         // NOTE: this is not used
         $productId = $request->query('product_id');
         $variantId = $request->query('variant_id');
@@ -41,12 +47,13 @@ class Cart extends Component
         ]);
     }
 
-    private function getHeaders(): array{
+    private function getHeaders(): array {
         return [
-            'Authorization' => 'Bearer ' . session('api_token'),
-            'X-Api-Key'     => config('services.ecommerce.api'),
-            'Content-Type'  => 'application/json',
-            'Accept'        => 'application/json',
+            'Authorization'      => 'Bearer ' . session('api_token'),
+            'X-Api-Key'          => config('services.ecommerce.api'),
+            'X-Guest-Session-id' => $this->guestSessionId,
+            'Content-Type'       => 'application/json',
+            'Accept'             => 'application/json',
         ];
     }
 
@@ -57,11 +64,22 @@ class Cart extends Component
         try {
             $baseUrl = config('services.ecommerce.url');
             $response = Http::withHeaders($this->getHeaders())->get($baseUrl . '/cart');
-            //             Log::info("00000000000000000000000000000000000000000000");
+            
             Log::info($response->json());
             $data = $response->json();
 
             if ($response->successful() && ($data['Success'] ?? false)) {
+
+                if (!empty($data['Data']['SessionId'])) {
+                    $sessionId = $data['Data']['SessionId'];
+
+                    // Update component property for immediate use in subsequent Livewire calls
+                    $this->guestSessionId = $sessionId;
+
+                    // Queue long-lived cookie (1 year / 525,600 mins) for future page visits
+                    Cookie::queue('guest_session_id', $sessionId, 525600);
+                }
+
                 $this->cartItems = $data['Data']['Items'] ?? [];
                 $this->subtotal = (float) ($data['Data']['Total'] ?? 0);
                 $this->totalAmount = $this->subtotal;
@@ -99,8 +117,8 @@ class Cart extends Component
                 ]
             ]);
 
-            Log::info("00000000000 Add tocart response 00000000000000");
-            Log::info($response->json());
+            // Log::info("00000000000 Add tocart response 00000000000000");
+            // Log::info($response->json());
 
             if ($response->successful()) {
                 session()->flash('success', 'Item added to cart.');
@@ -173,6 +191,14 @@ class Cart extends Component
             }
         } catch (\Throwable $th) {
             session()->flash('error', 'Unable to clear cart.');
+        }
+    }
+
+    public function proceedToCheckout(){
+        if (!session()->has('user')) {
+            return session()->flash('error', 'Sign in required for checkout.');
+        }else {
+            return redirect()->route("shipping-details");
         }
     }
 

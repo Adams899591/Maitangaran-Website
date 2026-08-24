@@ -231,15 +231,11 @@ class SingleProductPage extends Component
         $variantID = $this->selectedVariantId;
         $quantity  = $this->quantity;
 
-        if (!session()->has('user')) {
-            return session()->flash('error', 'Please log in to access your cart.');
-        }
-
         return redirect()->route('cart', [
             'id'         => $id,
             'product_id' => $productID,
             'variant_id' => $variantID,
-            'quantity'   => $quantity,
+            'quantity'   => $quantity, 
         ]);
     }
 
