@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Pages;
 
-use Illuminate\Auth\GenericUser;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;

@@ -49,7 +49,7 @@
       </div>
 
       <!-- Remember Me Checkbox -->
-      <div class="flex items-center">
+      {{-- <div class="flex items-center">
         <input 
           type="checkbox" 
           id="remember" 
@@ -57,7 +57,7 @@
           class="w-4 h-4 text-black border-gray-300 rounded focus:ring-black cursor-pointer"
         />
         <label for="remember" class="ml-2 text-xs text-gray-600 cursor-pointer select-none">Remember me on this device</label>
-      </div>
+      </div> --}}
 
       <!-- Submit Button -->
       <button 

@@ -37,7 +37,7 @@
             <!-- Countdown Display -->
             <div id="counter-view" class="flex flex-col items-center opacity-0 transition-opacity duration-1000">
                 <span id="count-number" class="text-gray-900 text-8xl md:text-9xl font-black">
-                    100
+                    10
                 </span>
                 <span class="text-gray-500 tracking-[5px] -mt-2 font-bold">
                     %
@@ -68,7 +68,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const LOADING_TIME = 10000; // 10 seconds
-            const START_COUNT = 100;
+            const START_COUNT = 10;
             
             let count = START_COUNT;
             const countElement = document.getElementById("count-number");

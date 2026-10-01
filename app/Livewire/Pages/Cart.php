@@ -65,6 +65,7 @@ class Cart extends Component
             $baseUrl = config('services.ecommerce.url');
             $response = Http::withHeaders($this->getHeaders())->get($baseUrl . '/cart');
             
+            Log::info("000000000000000000000000000000000");
             Log::info($response->json());
             $data = $response->json();
 
@@ -118,7 +119,7 @@ class Cart extends Component
             ]);
 
             // Log::info("00000000000 Add tocart response 00000000000000");
-            // Log::info($response->json());
+            Log::info($response->json());
 
             if ($response->successful()) {
                 session()->flash('success', 'Item added to cart.');
@@ -207,3 +208,4 @@ class Cart extends Component
         return view('livewire.pages.cart')->layout("layouts.pages.app");
     }
 }
+

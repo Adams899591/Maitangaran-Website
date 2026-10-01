@@ -184,11 +184,11 @@
         <div>
           <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-gray-800 pb-2 inline-block sm:border-none sm:pb-0">Quick Links</h5>
           <ul class="space-y-2.5 list-none p-0 m-0 text-sm">
-            <li><a href="{{route("home")}}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Home</a></li>
-            <li><a href="{{route("shop")}}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Shop</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Orders</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Wishlist</a></li>
-            <li><a href="{{route("contact")}}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Contact</a></li>
+            <li><a href="{{route("home")}}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5" wire:navigate>Home</a></li>
+            <li><a href="{{route("shop")}}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5" wire:navigate>Shop</a></li>
+            <li><a href="{{ session('user') ? route('order-ladger') : route('login') }}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5" wire:navigate>Orders</a></li>
+            {{-- <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Wishlist</a></li> --}}
+            <li><a href="{{route("contact")}}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5" wire:navigate>Contact</a></li>
           </ul>
         </div>
 
@@ -196,11 +196,11 @@
         <div>
           <h5 class="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-gray-800 pb-2 inline-block sm:border-none sm:pb-0">Help & Info</h5>
           <ul class="space-y-2.5 list-none p-0 m-0 text-sm">
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">FAQs</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Shipping Info</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Return Policy</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Privacy Policy</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">Terms & Conditions</a></li>
+            {{-- <li><a href="#" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5">FAQs</a></li> --}}
+            <li><a href="{{ route('shipping-info') }}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5" wire:navigate>Shipping Info</a></li>
+            <li><a href="{{ route('return-policy') }}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5" wire:navigate>Return Policy</a></li>
+            <li><a href="{{ route('privacy-policy') }}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5" wire:navigate>Privacy Policy</a></li>
+            <li><a href="{{ route('terms-and-conditions') }}" class="text-gray-400 hover:text-white transition-colors no-underline block py-0.5" wire:navigate>Terms & Conditions</a></li>
           </ul>
         </div>
 

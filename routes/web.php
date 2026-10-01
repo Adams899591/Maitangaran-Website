@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\LogoutController;
+use App\Livewire\Help\PrivacyPolicy;
+use App\Livewire\Help\ReturnPoilcy;
+use App\Livewire\Help\ShippingInfo;
+use App\Livewire\Help\TermsAndConditions;
 use App\Livewire\Pages\About;
 use App\Livewire\Pages\Cart;
 use App\Livewire\Pages\CartSuccess;
@@ -27,9 +31,20 @@ use App\Livewire\User\PendingReview;
 use App\Livewire\User\WriteReview;
 use Illuminate\Support\Facades\Route;
 
+
+// Route::get('/test-500', function () {
+//     abort(500);
+// });
+
+Route::fallback(function () {
+    return view("errors.404");
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 
 Route::prefix("page")->group(function(){
@@ -39,7 +54,6 @@ Route::prefix("page")->group(function(){
     Route::get('/about', About::class)->name("about");
     Route::get('/cart', Cart::class)->name("cart");
     Route::get('/shipping-details', ShippingDetails::class)->name("shipping-details");
-    // Route::get('/checkout', Checkout::class)->name("checkout");
     Route::get('/shipping-courier', ShippingCourier::class)->name("shipping-courier");
     Route::get('/cart-success', CartSuccess::class)->name("cart-success");
     Route::get('/single-product', SingleProductPage::class)->name("single-product");
@@ -72,6 +86,13 @@ Route::middleware(['api.session'])->prefix("user")->group(function(){
 });
 
 
+
+Route::prefix("help")->group(function(){
+    Route::get('/privacy-policy', PrivacyPolicy::class)->name("privacy-policy");
+    Route::get('/terms-and-conditions', TermsAndConditions::class)->name("terms-and-conditions");
+    Route::get('/return-policy', ReturnPoilcy::class)->name("return-policy");
+    Route::get('/shipping-info', ShippingInfo::class)->name("shipping-info");
+});
 
 
 

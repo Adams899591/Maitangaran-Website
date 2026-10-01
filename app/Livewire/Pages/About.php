@@ -1,46 +1,5 @@
 <?php
 
-// namespace App\Livewire\Pages;
-
-// use Illuminate\Support\Facades\Http;
-// use Illuminate\Support\Facades\Log;
-// use Livewire\Component;
-
-// class About extends Component
-// {
-
-//        public function mount()
-//     {
-//         $this->about();
-       
-//     }
-
-//    public function about(){
-//             $baseUrl = config('services.ecommerce.url');
-//             $apiKey  = config('services.ecommerce.api');
-
-//             // Log::info("Fetching products page: {$pageNumber} from {$baseUrl}/products");
-
-//             $response = Http::withHeaders([
-//                 'X-Api-Key'    => $apiKey,
-//                 'Content-Type' => 'application/json',
-//                 'Accept'       => 'application/json',
-//             ])->get("{$baseUrl}/company");
-
-//             Log::info($response->json());
-//    }
-
-
-//     public function render()
-//     {
-//         return view('livewire.pages.about')->layout("layouts.pages.app");
-//     }
-// }
-
-
-
-
-
 namespace App\Livewire\Pages;
 
 use Livewire\Component;
